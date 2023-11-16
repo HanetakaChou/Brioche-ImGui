@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="build-GLSL">
+      <UniqueIdentifier>{6fa5da58-2539-467f-8955-71bef0cd4675}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{bcdcec2b-d028-47db-9291-7b08b179cd20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\spirv">
+      <UniqueIdentifier>{ff65913c-3072-47e5-b787-11228f699b40}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\shaders\full_screen_transfer_fragment.sl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\shaders\full_screen_transfer_pipeline_layout.sli">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\shaders\full_screen_transfer_vertex.sl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\shaders\spirv\full_screen_transfer_fragment.inl">
+      <Filter>shaders\spirv</Filter>
+    </None>
+    <None Include="..\shaders\spirv\full_screen_transfer_vertex.inl">
+      <Filter>shaders\spirv</Filter>
+    </None>
+    <None Include="..\build-GLSL\GLSL.mk">
+      <Filter>build-GLSL</Filter>
+    </None>
+  </ItemGroup>
+</Project>

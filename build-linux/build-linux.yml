@@ -1,0 +1,27 @@
+name: build linux
+
+on:
+  push:
+    branches: [demo]
+  pull_request:
+    branches: [demo]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        use_debug_libraries: [true, false]
+    steps:
+      - uses: actions/checkout@main
+        with:
+          submodules: 'recursive'
+      - shell: bash
+        run: |
+          sudo apt install libxcb1-dev
+          make -C "./thirdparty/Brioche/build-linux" -f "./BRX.mk" "APP_DEBUG:=${{matrix.use_debug_libraries}}" -j$(nproc)
+          make -C "./thirdparty/Brioche-ImGui/thirdparty/freetype/build-linux" -f "./freetype.mk" "APP_DEBUG:=${{matrix.use_debug_libraries}}" -j$(nproc)
+          make -C "./thirdparty/Brioche-ImGui/build-GLSL" -f "./GLSL.mk" "APP_DEBUG:=${{matrix.use_debug_libraries}}" -j$(nproc)
+          make -C "./thirdparty/Brioche-ImGui/build-linux" -f "./BRX-ImGui.mk" "APP_DEBUG:=${{matrix.use_debug_libraries}}" -j$(nproc)
+          make -C "./build-GLSL" -f "./GLSL.mk" "APP_DEBUG:=${{matrix.use_debug_libraries}}" -j$(nproc)
+          make -C "./build-linux" -f "./Demo-Brx-ImGui.mk" "APP_DEBUG:=${{matrix.use_debug_libraries}}" -j$(nproc)
