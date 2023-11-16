@@ -1,0 +1,571 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		8404621D2F103DBE00B7BBFB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8404621C2F103DBE00B7BBFB /* Assets.xcassets */; };
+		8404622A2F1042A800B7BBFB /* scene_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840462292F1042A800B7BBFB /* scene_renderer.cpp */; };
+		8404622B2F1042A800B7BBFB /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840462272F1042A800B7BBFB /* main.cpp */; };
+		8404622C2F1042A800B7BBFB /* DXUTcamera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840462262F1042A800B7BBFB /* DXUTcamera.cpp */; };
+		8404622D2F1042A800B7BBFB /* renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 840462282F1042A800B7BBFB /* renderer.cpp */; };
+		840462342F1046DC00B7BBFB /* BRX-ImGui.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840462332F1046DC00B7BBFB /* BRX-ImGui.framework */; };
+		840462352F1046DC00B7BBFB /* BRX-ImGui.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 840462332F1046DC00B7BBFB /* BRX-ImGui.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		840462392F1046EB00B7BBFB /* BRX-ImGui-Font-Asset.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 840462372F1046EB00B7BBFB /* BRX-ImGui-Font-Asset.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8404623B2F10470500B7BBFB /* BRX-WSI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8404623A2F10470500B7BBFB /* BRX-WSI.framework */; };
+		8404623C2F10470500B7BBFB /* BRX-WSI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8404623A2F10470500B7BBFB /* BRX-WSI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		8404623E2F10471000B7BBFB /* McRT-Malloc.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8404623D2F10471000B7BBFB /* McRT-Malloc.framework */; };
+		8404623F2F10471000B7BBFB /* McRT-Malloc.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 8404623D2F10471000B7BBFB /* McRT-Malloc.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		840462422F10472000B7BBFB /* MoltenVK.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 840462402F10472000B7BBFB /* MoltenVK.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		840462442F10472600B7BBFB /* BRX-PAL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 840462432F10472600B7BBFB /* BRX-PAL.framework */; };
+		840462452F10472600B7BBFB /* BRX-PAL.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 840462432F10472600B7BBFB /* BRX-PAL.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		840462362F1046DD00B7BBFB /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				8404623F2F10471000B7BBFB /* McRT-Malloc.framework in Embed Frameworks */,
+				840462352F1046DC00B7BBFB /* BRX-ImGui.framework in Embed Frameworks */,
+				8404623C2F10470500B7BBFB /* BRX-WSI.framework in Embed Frameworks */,
+				840462392F1046EB00B7BBFB /* BRX-ImGui-Font-Asset.framework in Embed Frameworks */,
+				840462422F10472000B7BBFB /* MoltenVK.xcframework in Embed Frameworks */,
+				840462452F10472600B7BBFB /* BRX-PAL.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		840462142F103DBC00B7BBFB /* Demo-BRX-ImGui.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Demo-BRX-ImGui.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8404621C2F103DBE00B7BBFB /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		840462262F1042A800B7BBFB /* DXUTcamera.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = DXUTcamera.cpp; path = ../thirdparty/DXUT/Optional/DXUTcamera.cpp; sourceTree = SOURCE_ROOT; };
+		840462272F1042A800B7BBFB /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../source/main.cpp; sourceTree = SOURCE_ROOT; };
+		840462282F1042A800B7BBFB /* renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = renderer.cpp; path = ../source/renderer.cpp; sourceTree = SOURCE_ROOT; };
+		840462292F1042A800B7BBFB /* scene_renderer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = scene_renderer.cpp; path = ../source/scene_renderer.cpp; sourceTree = SOURCE_ROOT; };
+		840462332F1046DC00B7BBFB /* BRX-ImGui.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = "BRX-ImGui.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		840462372F1046EB00B7BBFB /* BRX-ImGui-Font-Asset.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = "BRX-ImGui-Font-Asset.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8404623A2F10470500B7BBFB /* BRX-WSI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = "BRX-WSI.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8404623D2F10471000B7BBFB /* McRT-Malloc.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = "McRT-Malloc.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		840462402F10472000B7BBFB /* MoltenVK.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = MoltenVK.xcframework; path = "../thirdparty/Brioche-Platform-Abstraction-Layer/thirdparty/MoltenVK/MoltenVK.xcframework"; sourceTree = "<group>"; };
+		840462432F10472600B7BBFB /* BRX-PAL.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = "BRX-PAL.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		840462112F103DBC00B7BBFB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8404623E2F10471000B7BBFB /* McRT-Malloc.framework in Frameworks */,
+				840462342F1046DC00B7BBFB /* BRX-ImGui.framework in Frameworks */,
+				840462442F10472600B7BBFB /* BRX-PAL.framework in Frameworks */,
+				8404623B2F10470500B7BBFB /* BRX-WSI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		840461F22F103D3200B7BBFB = {
+			isa = PBXGroup;
+			children = (
+				840462262F1042A800B7BBFB /* DXUTcamera.cpp */,
+				840462272F1042A800B7BBFB /* main.cpp */,
+				840462282F1042A800B7BBFB /* renderer.cpp */,
+				840462292F1042A800B7BBFB /* scene_renderer.cpp */,
+				8404621C2F103DBE00B7BBFB /* Assets.xcassets */,
+				840462322F1046DC00B7BBFB /* Frameworks */,
+				840461FC2F103D3200B7BBFB /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		840461FC2F103D3200B7BBFB /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				840462142F103DBC00B7BBFB /* Demo-BRX-ImGui.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		840462322F1046DC00B7BBFB /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				840462432F10472600B7BBFB /* BRX-PAL.framework */,
+				840462402F10472000B7BBFB /* MoltenVK.xcframework */,
+				8404623D2F10471000B7BBFB /* McRT-Malloc.framework */,
+				8404623A2F10470500B7BBFB /* BRX-WSI.framework */,
+				840462372F1046EB00B7BBFB /* BRX-ImGui-Font-Asset.framework */,
+				840462332F1046DC00B7BBFB /* BRX-ImGui.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXLegacyTarget section */
+		8404622E2F1045E400B7BBFB /* Demo-Brioche-ImGui-Build-GLSL */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "\"${PROJECT_DIR}/build-GLSL.sh\"";
+			buildConfigurationList = 8404622F2F1045E400B7BBFB /* Build configuration list for PBXLegacyTarget "Demo-Brioche-ImGui-Build-GLSL" */;
+			buildPhases = (
+			);
+			buildToolPath = bash;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = "Demo-Brioche-ImGui-Build-GLSL";
+			packageProductDependencies = (
+			);
+			passBuildSettingsInEnvironment = 1;
+			productName = "Demo-Brioche-ImGui-Build-GLSL";
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXNativeTarget section */
+		840462132F103DBC00B7BBFB /* Demo-BRX-ImGui */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 840462252F103DBE00B7BBFB /* Build configuration list for PBXNativeTarget "Demo-BRX-ImGui" */;
+			buildPhases = (
+				840462102F103DBC00B7BBFB /* Sources */,
+				840462112F103DBC00B7BBFB /* Frameworks */,
+				840462122F103DBC00B7BBFB /* Resources */,
+				840462362F1046DD00B7BBFB /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "Demo-BRX-ImGui";
+			packageProductDependencies = (
+			);
+			productName = "Demo-BRX-ImGui";
+			productReference = 840462142F103DBC00B7BBFB /* Demo-BRX-ImGui.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		840461F32F103D3200B7BBFB /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 2620;
+				TargetAttributes = {
+					840462132F103DBC00B7BBFB = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					8404622E2F1045E400B7BBFB = {
+						CreatedOnToolsVersion = 26.2;
+					};
+				};
+			};
+			buildConfigurationList = 840461F62F103D3200B7BBFB /* Build configuration list for PBXProject "Demo-BRX-ImGui" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 840461F22F103D3200B7BBFB;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 840461FC2F103D3200B7BBFB /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				840462132F103DBC00B7BBFB /* Demo-BRX-ImGui */,
+				8404622E2F1045E400B7BBFB /* Demo-Brioche-ImGui-Build-GLSL */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		840462122F103DBC00B7BBFB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8404621D2F103DBE00B7BBFB /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		840462102F103DBC00B7BBFB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8404622A2F1042A800B7BBFB /* scene_renderer.cpp in Sources */,
+				8404622B2F1042A800B7BBFB /* main.cpp in Sources */,
+				8404622C2F1042A800B7BBFB /* DXUTcamera.cpp in Sources */,
+				8404622D2F1042A800B7BBFB /* renderer.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		8404620B2F103D3300B7BBFB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = x86_64;
+				ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = NO;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		8404620C2F103D3300B7BBFB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = x86_64;
+				ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "compiler-default";
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = NO;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = "compiler-default";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"NDEBUG=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				STRIP_INSTALLED_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		840462232F103DBE00B7BBFB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				AUTOMATION_APPLE_EVENTS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_X86_VECTOR_INSTRUCTIONS = avx2;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = NO;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
+				EXPORTED_SYMBOLS_FILE = "$(PROJECT_DIR)/Demo-BRX-ImGui.exp";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"PAL_STDCPP_COMPAT=1",
+					"IMGUI_API=",
+					"IMGUI_IMPL_API=",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../thirdparty/CoreRT/src/Native/inc/unix",
+					"$(PROJECT_DIR)/../thirdparty/DirectXMath/Inc",
+				);
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				"OTHER_CFLAGS[arch=i386]" = (
+					"-mf16c",
+					"-mfma",
+					"-finput-charset=UTF-8",
+					"-fexec-charset=UTF-8",
+				);
+				"OTHER_CFLAGS[arch=x86_64]" = (
+					"-mf16c",
+					"-mfma",
+					"-finput-charset=UTF-8",
+					"-fexec-charset=UTF-8",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "IO.GitHub.BriochePuppet.Demo-BRX-ImGui";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES = NO;
+				RUNTIME_EXCEPTION_ALLOW_JIT = NO;
+				RUNTIME_EXCEPTION_ALLOW_UNSIGNED_EXECUTABLE_MEMORY = NO;
+				RUNTIME_EXCEPTION_DEBUGGING_TOOL = NO;
+				RUNTIME_EXCEPTION_DISABLE_EXECUTABLE_PAGE_PROTECTION = NO;
+				RUNTIME_EXCEPTION_DISABLE_LIBRARY_VALIDATION = NO;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		840462242F103DBE00B7BBFB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GENERATE_ASSET_SYMBOLS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = NO;
+				ASSETCATALOG_COMPILER_INCLUDE_ALL_APPICON_ASSETS = NO;
+				AUTOMATION_APPLE_EVENTS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++17";
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_X86_VECTOR_INSTRUCTIONS = avx2;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEFINES_MODULE = NO;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				ENABLE_APP_SANDBOX = YES;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_INCOMING_NETWORK_CONNECTIONS = NO;
+				ENABLE_OUTGOING_NETWORK_CONNECTIONS = NO;
+				ENABLE_RESOURCE_ACCESS_AUDIO_INPUT = NO;
+				ENABLE_RESOURCE_ACCESS_BLUETOOTH = NO;
+				ENABLE_RESOURCE_ACCESS_CALENDARS = NO;
+				ENABLE_RESOURCE_ACCESS_CAMERA = NO;
+				ENABLE_RESOURCE_ACCESS_CONTACTS = NO;
+				ENABLE_RESOURCE_ACCESS_LOCATION = NO;
+				ENABLE_RESOURCE_ACCESS_PHOTO_LIBRARY = NO;
+				ENABLE_RESOURCE_ACCESS_PRINTING = NO;
+				ENABLE_RESOURCE_ACCESS_USB = NO;
+				EXPORTED_SYMBOLS_FILE = "$(PROJECT_DIR)/Demo-BRX-ImGui.exp";
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"PAL_STDCPP_COMPAT=1",
+					"IMGUI_API=",
+					"IMGUI_IMPL_API=",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../thirdparty/CoreRT/src/Native/inc/unix",
+					"$(PROJECT_DIR)/../thirdparty/DirectXMath/Inc",
+				);
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				"OTHER_CFLAGS[arch=i386]" = (
+					"-mf16c",
+					"-mfma",
+					"-finput-charset=UTF-8",
+					"-fexec-charset=UTF-8",
+				);
+				"OTHER_CFLAGS[arch=x86_64]" = (
+					"-mf16c",
+					"-mfma",
+					"-finput-charset=UTF-8",
+					"-fexec-charset=UTF-8",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "IO.GitHub.BriochePuppet.Demo-BRX-ImGui";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				RUNTIME_EXCEPTION_ALLOW_DYLD_ENVIRONMENT_VARIABLES = NO;
+				RUNTIME_EXCEPTION_ALLOW_JIT = NO;
+				RUNTIME_EXCEPTION_ALLOW_UNSIGNED_EXECUTABLE_MEMORY = NO;
+				RUNTIME_EXCEPTION_DEBUGGING_TOOL = NO;
+				RUNTIME_EXCEPTION_DISABLE_EXECUTABLE_PAGE_PROTECTION = NO;
+				RUNTIME_EXCEPTION_DISABLE_LIBRARY_VALIDATION = NO;
+				STRIP_INSTALLED_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		840462302F1045E400B7BBFB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		840462312F1045E400B7BBFB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		840461F62F103D3200B7BBFB /* Build configuration list for PBXProject "Demo-BRX-ImGui" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8404620B2F103D3300B7BBFB /* Debug */,
+				8404620C2F103D3300B7BBFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		840462252F103DBE00B7BBFB /* Build configuration list for PBXNativeTarget "Demo-BRX-ImGui" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				840462232F103DBE00B7BBFB /* Debug */,
+				840462242F103DBE00B7BBFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8404622F2F1045E400B7BBFB /* Build configuration list for PBXLegacyTarget "Demo-Brioche-ImGui-Build-GLSL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				840462302F1045E400B7BBFB /* Debug */,
+				840462312F1045E400B7BBFB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 840461F32F103D3200B7BBFB /* Project object */;
+}

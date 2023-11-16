@@ -1,0 +1,56 @@
+[submodule "thirdparty/Brioche-ImGui"]
+	path = thirdparty/Brioche-ImGui
+	url = git@github.com:HanetakaChou/Brioche-ImGui.git
+	branch = master
+[submodule "thirdparty/Vulkan-ValidationLayers"]
+	path = thirdparty/Vulkan-ValidationLayers
+	url = git@github.com:HanetakaChou/Vulkan-ValidationLayers.git
+	branch = master
+[submodule "thirdparty/shaderc"]
+	path = thirdparty/shaderc
+	url = git@github.com:HanetakaChou/shaderc.git
+	branch = master
+[submodule "thirdparty/DirectXShaderCompiler"]
+	path = thirdparty/DirectXShaderCompiler
+	url = git@github.com:HanetakaChou/DirectXShaderCompiler.git
+	branch = master
+[submodule "thirdparty/CoreRT"]
+	path = thirdparty/CoreRT
+	url = git@github.com:HanetakaChou/CoreRT.git
+	branch = master
+[submodule "thirdparty/DirectXMath"]
+	path = thirdparty/DirectXMath
+	url = git@github.com:HanetakaChou/DirectXMath.git
+	branch = master
+[submodule "thirdparty/DXUT"]
+	path = thirdparty/DXUT
+	url = git@github.com:HanetakaChou/DXUT.git
+	branch = master
+[submodule "thirdparty/make"]
+	path = thirdparty/make
+	url = git@github.com:HanetakaChou/make.git
+	branch = master
+[submodule "thirdparty/McRT-Malloc"]
+	path = thirdparty/McRT-Malloc
+	url = git@github.com:HanetakaChou/McRT-Malloc.git
+	branch = master
+[submodule "thirdparty/libiconv"]
+	path = thirdparty/libiconv
+	url = git@github.com:HanetakaChou/libiconv.git
+	branch = master
+[submodule "thirdparty/Brioche-Shader-Language"]
+	path = thirdparty/Brioche-Shader-Language
+	url = git@github.com:HanetakaChou/Brioche-Shader-Language.git
+	branch = master
+[submodule "thirdparty/Brioche-Platform-Abstraction-Layer"]
+	path = thirdparty/Brioche-Platform-Abstraction-Layer
+	url = git@github.com:HanetakaChou/Brioche-Platform-Abstraction-Layer.git
+	branch = master
+[submodule "thirdparty/Brioche-Window-System-Integration"]
+	path = thirdparty/Brioche-Window-System-Integration
+	url = git@github.com:HanetakaChou/Brioche-Window-System-Integration.git
+	branch = master
+[submodule "thirdparty/NDK-Build-Linux"]
+	path = thirdparty/NDK-Build-Linux
+	url = git@github.com:BriochePuppet/NDK-Build-Linux.git
+	branch = master

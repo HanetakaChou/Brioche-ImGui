@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <FileRef
+      location = "group:Demo-BRX-ImGui.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:../thirdparty/Brioche-ImGui/build-macos/BRX-ImGui.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:../thirdparty/Brioche-ImGui/thirdparty/freetype/build-macos/freetype.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:../thirdparty/Brioche-Platform-Abstraction-Layer/build-macos/BRX-PAL.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:../thirdparty/Brioche-Window-System-Integration/build-macos/BRX-WSI.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:../thirdparty/McRT-Malloc/build-macos/McRT-Malloc.xcodeproj">
+   </FileRef>
+   <FileRef
+      location = "container:../thirdparty/McRT-Malloc/thirdparty/Intel-TBB/build-macos/Intel-TBB.xcodeproj">
+   </FileRef>
+</Workspace>
