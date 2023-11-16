@@ -1,0 +1,71 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="..\thirdparty\DXUT\Optional\DXUTcamera.cpp">
+      <Filter>thirdparty\DXUT\Optional</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\main.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\renderer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\source\scene_renderer.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\thirdparty\DXUT\Optional\DXUTcamera.h">
+      <Filter>thirdparty\DXUT\Optional</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\renderer.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\renderer_config.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\scene_renderer.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\source\user_input_model.h">
+      <Filter>source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <CopyFileToFolders Include="..\thirdparty\Vulkan-ValidationLayers\bin\win32\x64\VkLayer_khronos_validation.dll">
+      <Filter>thirdparty\Vulkan-ValidationLayers\x64</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\thirdparty\Vulkan-ValidationLayers\bin\win32\x64\VkLayer_khronos_validation.json">
+      <Filter>thirdparty\Vulkan-ValidationLayers\x64</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\thirdparty\Vulkan-ValidationLayers\bin\win32\x86\VkLayer_khronos_validation.dll">
+      <Filter>thirdparty\Vulkan-ValidationLayers\x86</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="..\thirdparty\Vulkan-ValidationLayers\bin\win32\x86\VkLayer_khronos_validation.json">
+      <Filter>thirdparty\Vulkan-ValidationLayers\x86</Filter>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="thirdparty">
+      <UniqueIdentifier>{3fd46330-fb50-48b9-9af8-f2bd1292021a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thirdparty\Vulkan-ValidationLayers">
+      <UniqueIdentifier>{0a393837-6c85-4124-89a5-28e5ae120ec4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thirdparty\Vulkan-ValidationLayers\x86">
+      <UniqueIdentifier>{8392cec9-8a4b-4f55-939a-fda75c196bb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thirdparty\Vulkan-ValidationLayers\x64">
+      <UniqueIdentifier>{20e5e431-be5d-49a8-9c62-4973be7abee1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thirdparty\DXUT">
+      <UniqueIdentifier>{e7146b6c-e01b-40f6-905e-ea502ae2636c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="thirdparty\DXUT\Optional">
+      <UniqueIdentifier>{cf630631-d00a-4e3d-a10b-3fab6c653b7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source">
+      <UniqueIdentifier>{37c5a5ad-5eb4-4e26-9650-d224d77e0e05}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>
