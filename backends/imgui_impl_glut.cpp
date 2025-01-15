@@ -34,22 +34,39 @@
 //  2018-11-30: Misc: Setting up io.BackendPlatformName so it can be displayed in the About Window.
 //  2018-03-22: Added GLUT Platform binding.
 
-#include "imgui.h"
+#include "../imgui.h"
 #ifndef IMGUI_DISABLE
 #include "imgui_impl_glut.h"
 #define GL_SILENCE_DEPRECATION
-#ifdef __APPLE__
-#include <GLUT/glut.h>
+
+extern "C" bool ImGui_ImplGLUT_Init()
+{
+    ImGuiIO &io = ImGui::GetIO();
+    IMGUI_CHECKVERSION();
+
+#ifdef FREEGLUT
+    io.BackendPlatformName = "imgui_impl_glut (freeglut)";
 #else
-#include <GL/freeglut.h>
+    io.BackendPlatformName = "imgui_impl_glut";
 #endif
 
-#ifdef _MSC_VER
-#pragma warning(disable : 4505) // unreferenced local function has been removed (stb stuff)
-#endif
+    return true;
+}
 
-static int g_Time = 0; // Current time, in milliseconds
+extern "C" void ImGui_ImplGLUT_Shutdown()
+{
+    ImGuiIO &io = ImGui::GetIO();
+    io.BackendPlatformName = nullptr;
+}
 
+extern "C" void ImGui_ImplGLUT_NewFrame(float delta_time_in_seconds)
+{
+    // Setup time step
+    ImGuiIO &io = ImGui::GetIO();
+    io.DeltaTime = delta_time_in_seconds;
+}
+
+#if 0
 // Glut has 1 function for characters and one for "special keys". We map the characters in the 0..255 range and the keys above.
 static ImGuiKey ImGui_ImplGLUT_KeyToImGuiKey(int key)
 {
@@ -273,62 +290,14 @@ static ImGuiKey ImGui_ImplGLUT_KeyToImGuiKey(int key)
         return ImGuiKey_None;
     }
 }
-
-bool ImGui_ImplGLUT_Init()
-{
-    ImGuiIO &io = ImGui::GetIO();
-    IMGUI_CHECKVERSION();
-
-#ifdef FREEGLUT
-    io.BackendPlatformName = "imgui_impl_glut (freeglut)";
-#else
-    io.BackendPlatformName = "imgui_impl_glut";
 #endif
-    g_Time = 0;
 
-    return true;
-}
-
-void ImGui_ImplGLUT_InstallFuncs()
-{
-    glutReshapeFunc(ImGui_ImplGLUT_ReshapeFunc);
-    glutMotionFunc(ImGui_ImplGLUT_MotionFunc);
-    glutPassiveMotionFunc(ImGui_ImplGLUT_MotionFunc);
-    glutMouseFunc(ImGui_ImplGLUT_MouseFunc);
-#ifdef __FREEGLUT_EXT_H__
-    glutMouseWheelFunc(ImGui_ImplGLUT_MouseWheelFunc);
-#endif
-    glutKeyboardFunc(ImGui_ImplGLUT_KeyboardFunc);
-    glutKeyboardUpFunc(ImGui_ImplGLUT_KeyboardUpFunc);
-    glutSpecialFunc(ImGui_ImplGLUT_SpecialFunc);
-    glutSpecialUpFunc(ImGui_ImplGLUT_SpecialUpFunc);
-}
-
-void ImGui_ImplGLUT_Shutdown()
+static void ImGui_ImplGLUT_UpdateKeyModifiers(bool ctrl, bool shift, bool alt)
 {
     ImGuiIO &io = ImGui::GetIO();
-    io.BackendPlatformName = nullptr;
-}
-
-void ImGui_ImplGLUT_NewFrame()
-{
-    // Setup time step
-    ImGuiIO &io = ImGui::GetIO();
-    int current_time = glutGet(GLUT_ELAPSED_TIME);
-    int delta_time_ms = (current_time - g_Time);
-    if (delta_time_ms <= 0)
-        delta_time_ms = 1;
-    io.DeltaTime = delta_time_ms / 1000.0f;
-    g_Time = current_time;
-}
-
-static void ImGui_ImplGLUT_UpdateKeyModifiers()
-{
-    ImGuiIO &io = ImGui::GetIO();
-    int glut_key_mods = glutGetModifiers();
-    io.AddKeyEvent(ImGuiMod_Ctrl, (glut_key_mods & GLUT_ACTIVE_CTRL) != 0);
-    io.AddKeyEvent(ImGuiMod_Shift, (glut_key_mods & GLUT_ACTIVE_SHIFT) != 0);
-    io.AddKeyEvent(ImGuiMod_Alt, (glut_key_mods & GLUT_ACTIVE_ALT) != 0);
+    io.AddKeyEvent(ImGuiMod_Ctrl, ctrl);
+    io.AddKeyEvent(ImGuiMod_Shift, shift);
+    io.AddKeyEvent(ImGuiMod_Alt, alt);
 }
 
 static void ImGui_ImplGLUT_AddKeyEvent(ImGuiKey key, bool down, int native_keycode)
@@ -338,7 +307,8 @@ static void ImGui_ImplGLUT_AddKeyEvent(ImGuiKey key, bool down, int native_keyco
     io.SetKeyEventNativeData(key, native_keycode, -1); // To support legacy indexing (<1.87 user code)
 }
 
-void ImGui_ImplGLUT_KeyboardFunc(unsigned char c, int x, int y)
+#if 0
+extern "C" void ImGui_ImplGLUT_KeyboardFunc(unsigned char c)
 {
     // Send character to imgui
     // printf("char_down_func %d '%c'\n", c, c);
@@ -349,73 +319,63 @@ void ImGui_ImplGLUT_KeyboardFunc(unsigned char c, int x, int y)
     ImGuiKey key = ImGui_ImplGLUT_KeyToImGuiKey(c);
     ImGui_ImplGLUT_AddKeyEvent(key, true, c);
     ImGui_ImplGLUT_UpdateKeyModifiers();
-    (void)x;
-    (void)y; // Unused
 }
 
-void ImGui_ImplGLUT_KeyboardUpFunc(unsigned char c, int x, int y)
+extern "C" void ImGui_ImplGLUT_KeyboardUpFunc(unsigned char c)
 {
     // printf("char_up_func %d '%c'\n", c, c);
     ImGuiKey key = ImGui_ImplGLUT_KeyToImGuiKey(c);
     ImGui_ImplGLUT_AddKeyEvent(key, false, c);
     ImGui_ImplGLUT_UpdateKeyModifiers();
-    (void)x;
-    (void)y; // Unused
 }
 
-void ImGui_ImplGLUT_SpecialFunc(int key, int x, int y)
+extern "C" void ImGui_ImplGLUT_SpecialFunc(int key)
 {
     // printf("key_down_func %d\n", key);
     ImGuiKey imgui_key = ImGui_ImplGLUT_KeyToImGuiKey(key + 256);
     ImGui_ImplGLUT_AddKeyEvent(imgui_key, true, key + 256);
     ImGui_ImplGLUT_UpdateKeyModifiers();
-    (void)x;
-    (void)y; // Unused
 }
 
-void ImGui_ImplGLUT_SpecialUpFunc(int key, int x, int y)
+extern "C" void ImGui_ImplGLUT_SpecialUpFunc(int key)
 {
     // printf("key_up_func %d\n", key);
     ImGuiKey imgui_key = ImGui_ImplGLUT_KeyToImGuiKey(key + 256);
     ImGui_ImplGLUT_AddKeyEvent(imgui_key, false, key + 256);
     ImGui_ImplGLUT_UpdateKeyModifiers();
-    (void)x;
-    (void)y; // Unused
-}
-
-void ImGui_ImplGLUT_MouseFunc(int glut_button, int state, int x, int y)
-{
-    ImGuiIO &io = ImGui::GetIO();
-    io.AddMousePosEvent((float)x, (float)y);
-    int button = -1;
-    if (glut_button == GLUT_LEFT_BUTTON)
-        button = 0;
-    if (glut_button == GLUT_RIGHT_BUTTON)
-        button = 1;
-    if (glut_button == GLUT_MIDDLE_BUTTON)
-        button = 2;
-    if (button != -1 && (state == GLUT_DOWN || state == GLUT_UP))
-        io.AddMouseButtonEvent(button, state == GLUT_DOWN);
-}
-
-#ifdef __FREEGLUT_EXT_H__
-void ImGui_ImplGLUT_MouseWheelFunc(int button, int dir, int x, int y)
-{
-    ImGuiIO &io = ImGui::GetIO();
-    io.AddMousePosEvent((float)x, (float)y);
-    if (dir != 0)
-        io.AddMouseWheelEvent(0.0f, dir > 0 ? 1.0f : -1.0f);
-    (void)button; // Unused
 }
 #endif
 
-void ImGui_ImplGLUT_ReshapeFunc(int w, int h)
+extern "C" void ImGui_ImplGLUT_MouseFunc(int mouse_button, bool down, int x, int y)
+{
+    ImGuiIO &io = ImGui::GetIO();
+    io.AddMousePosEvent((float)x, (float)y);
+
+    // 0: LEFT
+    // 1: RIGHT
+    // 2: Middle
+    assert(0 == mouse_button || 1 == mouse_button || 2 == mouse_button);
+
+    io.AddMouseButtonEvent(mouse_button, down);
+}
+
+extern "C" void ImGui_ImplGLUT_MouseWheelFunc(bool dir, int x, int y)
+{
+    ImGuiIO &io = ImGui::GetIO();
+    io.AddMousePosEvent((float)x, (float)y);
+
+    // true: UP
+    // false: DOWN
+    io.AddMouseWheelEvent(0.0f, dir ? 1.0f : -1.0f);
+}
+
+extern "C" void ImGui_ImplGLUT_ReshapeFunc(int w, int h)
 {
     ImGuiIO &io = ImGui::GetIO();
     io.DisplaySize = ImVec2((float)w, (float)h);
 }
 
-void ImGui_ImplGLUT_MotionFunc(int x, int y)
+extern "C" void ImGui_ImplGLUT_MotionFunc(int x, int y)
 {
     ImGuiIO &io = ImGui::GetIO();
     io.AddMousePosEvent((float)x, (float)y);

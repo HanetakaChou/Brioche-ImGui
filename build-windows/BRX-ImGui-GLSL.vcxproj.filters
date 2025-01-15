@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="build-GLSL">
+      <UniqueIdentifier>{2388d0dc-269b-46b9-a275-171b729adb61}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders">
+      <UniqueIdentifier>{6334c95a-2066-441d-8f33-2e0adbacf98c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="shaders\spirv">
+      <UniqueIdentifier>{bcb5c51c-bed4-480e-abf0-21be34336d42}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\build-GLSL\GLSL.mk">
+      <Filter>build-GLSL</Filter>
+    </None>
+    <None Include="..\shaders\imgui_fragment.sl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\shaders\imgui_pipeline_resource_binding.sli">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\shaders\imgui_vertex.sl">
+      <Filter>shaders</Filter>
+    </None>
+    <None Include="..\shaders\spirv\imgui_fragment.inl">
+      <Filter>shaders\spirv</Filter>
+    </None>
+    <None Include="..\shaders\spirv\imgui_vertex.inl">
+      <Filter>shaders\spirv</Filter>
+    </None>
+  </ItemGroup>
+</Project>
