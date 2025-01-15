@@ -1,0 +1,78 @@
+//
+// Copyright (C) YuqiaoZhang(HanetakaChou)
+//
+// This program is free software: you can redistribute it and/or modify
+// it under the terms of the GNU Lesser General Public License as published
+// by the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU Lesser General Public License for more details.
+//
+// You should have received a copy of the GNU Lesser General Public License
+// along with this program.  If not, see <https://www.gnu.org/licenses/>.
+//
+
+#ifndef _IMGUI_PIPELINE_RESOURCE_BINDING_SLI_
+#define _IMGUI_PIPELINE_RESOURCE_BINDING_SLI_ 1
+
+#include "../../Brioche/shaders/brx_define.sli"
+
+#define g_imgui_vertex_position_buffer_stride 4u
+#define g_imgui_vertex_texcoord_buffer_stride 4u
+#define g_imgui_vertex_color_buffer_stride 4u
+#define g_imgui_index_uint16_buffer_stride 2u
+
+#if defined(__cplusplus)
+static_assert(sizeof(DirectX::PackedVector::XMSHORTN2) == g_imgui_vertex_position_buffer_stride, "");
+static_assert(0U ==  (g_imgui_vertex_position_buffer_stride & 3U), "");
+static_assert(sizeof(DirectX::PackedVector::XMUSHORTN2) == g_imgui_vertex_texcoord_buffer_stride, "");
+static_assert(0U ==  (g_imgui_vertex_texcoord_buffer_stride & 3U), "");
+static_assert(sizeof(DirectX::PackedVector::XMUBYTEN4) == g_imgui_vertex_color_buffer_stride, "");
+static_assert(0U ==  (g_imgui_vertex_color_buffer_stride & 3U), "");
+static_assert(sizeof(uint16_t) == g_imgui_index_uint16_buffer_stride, "");
+#endif
+
+// D3D11_REQ_CONSTANT_BUFFER_ELEMENT_COUNT 4096
+// Vulkan Core: maxUniformBufferRange 16384 = 16 * 1024
+// Vulkan Roadmap 2022: maxUniformBufferRange 65536 = 16 * 4096
+#define IMGUI_MAX_VERTEX_COUNT 16384u
+#define IMGUI_MAX_INDEX_COUNT 32768u
+
+brx_cbuffer(imgui_pipeline_none_update_set_vertex_position_uniform_buffer_binding, 0, 0)
+{
+    brx_uint4 g_vertex_position_uniform_buffer[brx_int((IMGUI_MAX_VERTEX_COUNT * g_imgui_vertex_position_buffer_stride) >> 4)];
+};
+
+brx_cbuffer(imgui_pipeline_none_update_set_vertex_texcoord_uniform_buffer_binding, 0, 1)
+{
+    brx_uint4 g_vertex_texcoord_uniform_buffer[brx_int((IMGUI_MAX_VERTEX_COUNT * g_imgui_vertex_texcoord_buffer_stride) >> 4)];
+};
+
+brx_cbuffer(imgui_pipeline_none_update_set_vertex_color_uniform_buffer_binding, 0, 2)
+{
+    brx_uint4 g_vertex_color_uniform_buffer[brx_int((IMGUI_MAX_VERTEX_COUNT * g_imgui_vertex_color_buffer_stride) >> 4)];
+};
+
+brx_cbuffer(imgui_pipeline_none_update_set_index_uniform_buffer_binding, 0, 3)
+{
+    brx_uint4 g_index_uniform_buffer[brx_int((IMGUI_MAX_INDEX_COUNT * g_imgui_index_uint16_buffer_stride) >> 4)];
+};
+
+brx_sampler_state(g_sampler, 0, 4);
+
+brx_texture_2d(g_font_texture, 0, 5);
+
+#define imgui_root_signature_macro                                                                \
+brx_root_signature_root_parameter_begin(imgui_root_signature_name)                                \
+brx_root_signature_root_cbv(0, 0) brx_root_signature_root_parameter_split                         \
+brx_root_signature_root_cbv(0, 1) brx_root_signature_root_parameter_split                         \
+brx_root_signature_root_cbv(0, 2) brx_root_signature_root_parameter_split                         \
+brx_root_signature_root_cbv(0, 3) brx_root_signature_root_parameter_split                         \
+brx_root_signature_root_descriptor_table_sampler(0, 4, 1) brx_root_signature_root_parameter_split \
+brx_root_signature_root_descriptor_table_srv(0, 5, 1)
+brx_root_signature_root_parameter_end
+
+#endif

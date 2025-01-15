@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="source">
+      <UniqueIdentifier>{2a160ec0-c9e3-498a-8924-fe584db95d67}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="build-windows">
+      <UniqueIdentifier>{d48da77f-4dd0-4403-af29-ed1d58828228}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\backends">
+      <UniqueIdentifier>{ae1b776d-3541-446f-bdce-9d600c3c4b22}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\misc">
+      <UniqueIdentifier>{98bd986d-8c19-423a-988c-442a2b6e3b9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="source\misc\freetype">
+      <UniqueIdentifier>{3bf24a97-a0f6-4320-a191-b489f9b5a76f}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\imconfig.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\imgui.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\imgui_internal.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\imstb_rectpack.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\imstb_textedit.h">
+      <Filter>source</Filter>
+    </ClInclude>
+    <ClInclude Include="..\misc\freetype\imgui_freetype.h">
+      <Filter>source\misc\freetype</Filter>
+    </ClInclude>
+    <ClInclude Include="..\backends\imgui_impl_win32.h">
+      <Filter>source\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="..\backends\imgui_impl_brx.h">
+      <Filter>source\backends</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\imgui.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\imgui_draw.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\imgui_tables.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\imgui_widgets.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>build-windows</Filter>
+    </ClCompile>
+    <ClCompile Include="..\imgui_demo.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="..\backends\imgui_impl_win32.cpp">
+      <Filter>source\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\backends\imgui_impl_brx.cpp">
+      <Filter>source\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\misc\freetype\imgui_freetype.cpp">
+      <Filter>source\misc\freetype</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

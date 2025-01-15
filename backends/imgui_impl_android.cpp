@@ -29,7 +29,7 @@
 //  2022-01-10: Inputs: calling new io.AddKeyEvent(), io.AddKeyModsEvent() + io.SetKeyEventNativeData() API (1.87+). Support for full ImGuiKey range.
 //  2021-03-04: Initial version.
 
-#include "imgui.h"
+#include "../imgui.h"
 #ifndef IMGUI_DISABLE
 #include "imgui_impl_android.h"
 #include <time.h>
@@ -262,7 +262,7 @@ static ImGuiKey ImGui_ImplAndroid_KeyCodeToImGuiKey(int32_t key_code)
     }
 }
 
-int32_t ImGui_ImplAndroid_HandleInputEvent(const AInputEvent *input_event)
+extern "C" int32_t ImGui_ImplAndroid_HandleInputEvent(const AInputEvent *input_event)
 {
     ImGuiIO &io = ImGui::GetIO();
     int32_t event_type = AInputEvent_getType(input_event);
@@ -367,7 +367,7 @@ int32_t ImGui_ImplAndroid_HandleInputEvent(const AInputEvent *input_event)
     return 0;
 }
 
-bool ImGui_ImplAndroid_Init(ANativeWindow *window)
+extern "C" bool ImGui_ImplAndroid_Init(ANativeWindow *window)
 {
     IMGUI_CHECKVERSION();
 
@@ -381,13 +381,13 @@ bool ImGui_ImplAndroid_Init(ANativeWindow *window)
     return true;
 }
 
-void ImGui_ImplAndroid_Shutdown()
+extern "C" void ImGui_ImplAndroid_Shutdown()
 {
     ImGuiIO &io = ImGui::GetIO();
     io.BackendPlatformName = nullptr;
 }
 
-void ImGui_ImplAndroid_NewFrame()
+extern "C" void ImGui_ImplAndroid_NewFrame()
 {
     ImGuiIO &io = ImGui::GetIO();
 
