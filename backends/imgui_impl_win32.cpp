@@ -17,7 +17,7 @@
 // - Introduction, links and more at the top of imgui.cpp
 
 // Configuration flags to add in your imconfig file:
-// #define IMGUI_IMPL_WIN32_DISABLE_GAMEPAD              // Disable gamepad support. This was meaningful before <1.81 but we now load XInput dynamically so the option is now less relevant.
+#define IMGUI_IMPL_WIN32_DISABLE_GAMEPAD // Disable gamepad support. This was meaningful before <1.81 but we now load XInput dynamically so the option is now less relevant.
 
 // CHANGELOG
 // (minor and older changes stripped away, please see git history for details)
@@ -80,7 +80,7 @@
 //  2017-10-23: Inputs: Using Win32 ::SetCapture/::GetCapture() to retrieve mouse positions outside the client area when dragging.
 //  2016-11-12: Inputs: Only call Win32 ::SetCursor(nullptr) when io.MouseDrawCursor is set.
 
-#include "imgui.h"
+#include "../imgui.h"
 #ifndef IMGUI_DISABLE
 #include "imgui_impl_win32.h"
 #ifndef WIN32_LEAN_AND_MEAN
@@ -115,8 +115,6 @@ struct ImGui_ImplWin32_Data
     HWND MouseHwnd;
     int MouseTrackedArea; // 0: not tracked, 1: client area, 2: non-client area
     int MouseButtonsDown;
-    INT64 Time;
-    INT64 TicksPerSecond;
     ImGuiMouseCursor LastMouseCursor;
     UINT32 KeyboardCodePage;
 
@@ -151,21 +149,15 @@ static void ImGui_ImplWin32_UpdateKeyboardCodePage(ImGuiIO &io)
     ImGui_ImplWin32_Data *bd = ImGui_ImplWin32_GetBackendData(io);
     HKL keyboard_layout = ::GetKeyboardLayout(0);
     LCID keyboard_lcid = MAKELCID(HIWORD(keyboard_layout), SORT_DEFAULT);
-    if (::GetLocaleInfoA(keyboard_lcid, (LOCALE_RETURN_NUMBER | LOCALE_IDEFAULTANSICODEPAGE), (LPSTR)&bd->KeyboardCodePage, sizeof(bd->KeyboardCodePage)) == 0)
+    if (::GetLocaleInfoW(keyboard_lcid, (LOCALE_RETURN_NUMBER | LOCALE_IDEFAULTANSICODEPAGE), (LPWSTR)&bd->KeyboardCodePage, sizeof(bd->KeyboardCodePage)) == 0)
         bd->KeyboardCodePage = CP_ACP; // Fallback to default ANSI code page when fails.
 }
 
-static bool ImGui_ImplWin32_InitEx(void *hwnd, bool platform_has_own_dc)
+static bool ImGui_ImplWin32_InitEx(void *hwnd)
 {
     ImGuiIO &io = ImGui::GetIO();
     IMGUI_CHECKVERSION();
     IM_ASSERT(io.BackendPlatformUserData == nullptr && "Already initialized a platform backend!");
-
-    INT64 perf_frequency, perf_counter;
-    if (!::QueryPerformanceFrequency((LARGE_INTEGER *)&perf_frequency))
-        return false;
-    if (!::QueryPerformanceCounter((LARGE_INTEGER *)&perf_counter))
-        return false;
 
     // Setup backend capabilities flags
     ImGui_ImplWin32_Data *bd = IM_NEW(ImGui_ImplWin32_Data)();
@@ -175,29 +167,26 @@ static bool ImGui_ImplWin32_InitEx(void *hwnd, bool platform_has_own_dc)
     io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;  // We can honor io.WantSetMousePos requests (optional, rarely used)
 
     bd->hWnd = (HWND)hwnd;
-    bd->TicksPerSecond = perf_frequency;
-    bd->Time = perf_counter;
     bd->LastMouseCursor = ImGuiMouseCursor_COUNT;
     ImGui_ImplWin32_UpdateKeyboardCodePage(io);
 
     // Set platform dependent data in viewport
     ImGuiViewport *main_viewport = ImGui::GetMainViewport();
     main_viewport->PlatformHandle = main_viewport->PlatformHandleRaw = (void *)bd->hWnd;
-    IM_UNUSED(platform_has_own_dc); // Used in 'docking' branch
 
     // Dynamically load XInput library
 #ifndef IMGUI_IMPL_WIN32_DISABLE_GAMEPAD
     bd->WantUpdateHasGamepad = true;
-    const char *xinput_dll_names[] =
+    const wchar_t *xinput_dll_names[] =
         {
-            "xinput1_4.dll",   // Windows 8+
-            "xinput1_3.dll",   // DirectX SDK
-            "xinput9_1_0.dll", // Windows Vista, Windows 7
-            "xinput1_2.dll",   // DirectX SDK
-            "xinput1_1.dll"    // DirectX SDK
+            L"xinput1_4.dll",   // Windows 8+
+            L"xinput1_3.dll",   // DirectX SDK
+            L"xinput9_1_0.dll", // Windows Vista, Windows 7
+            L"xinput1_2.dll",   // DirectX SDK
+            L"xinput1_1.dll"    // DirectX SDK
         };
     for (int n = 0; n < IM_ARRAYSIZE(xinput_dll_names); n++)
-        if (HMODULE dll = ::LoadLibraryA(xinput_dll_names[n]))
+        if (HMODULE dll = ::LoadLibraryW(xinput_dll_names[n]))
         {
             bd->XInputDLL = dll;
             bd->XInputGetCapabilities = (PFN_XInputGetCapabilities)::GetProcAddress(dll, "XInputGetCapabilities");
@@ -209,18 +198,12 @@ static bool ImGui_ImplWin32_InitEx(void *hwnd, bool platform_has_own_dc)
     return true;
 }
 
-IMGUI_IMPL_API bool ImGui_ImplWin32_Init(void *hwnd)
+extern "C" IMGUI_IMPL_API bool ImGui_ImplWin32_Init(void *hwnd)
 {
-    return ImGui_ImplWin32_InitEx(hwnd, false);
+    return ImGui_ImplWin32_InitEx(hwnd);
 }
 
-IMGUI_IMPL_API bool ImGui_ImplWin32_InitForOpenGL(void *hwnd)
-{
-    // OpenGL needs CS_OWNDC
-    return ImGui_ImplWin32_InitEx(hwnd, true);
-}
-
-void ImGui_ImplWin32_Shutdown()
+extern "C" void ImGui_ImplWin32_Shutdown()
 {
     ImGui_ImplWin32_Data *bd = ImGui_ImplWin32_GetBackendData();
     IM_ASSERT(bd != nullptr && "No platform backend to shutdown, or already shutdown?");
@@ -422,7 +405,7 @@ static void ImGui_ImplWin32_UpdateGamepads(ImGuiIO &io)
 #endif
 }
 
-void ImGui_ImplWin32_NewFrame()
+extern "C" void ImGui_ImplWin32_NewFrame(float delta_time_in_seconds)
 {
     ImGui_ImplWin32_Data *bd = ImGui_ImplWin32_GetBackendData();
     IM_ASSERT(bd != nullptr && "Context or backend not initialized? Did you call ImGui_ImplWin32_Init()?");
@@ -434,10 +417,7 @@ void ImGui_ImplWin32_NewFrame()
     io.DisplaySize = ImVec2((float)(rect.right - rect.left), (float)(rect.bottom - rect.top));
 
     // Setup time step
-    INT64 current_time = 0;
-    ::QueryPerformanceCounter((LARGE_INTEGER *)&current_time);
-    io.DeltaTime = (float)(current_time - bd->Time) / bd->TicksPerSecond;
-    bd->Time = current_time;
+    io.DeltaTime = delta_time_in_seconds;
 
     // Update OS mouse position
     ImGui_ImplWin32_UpdateMouseData(io);
@@ -459,8 +439,8 @@ void ImGui_ImplWin32_NewFrame()
 
 // Map VK_xxx to ImGuiKey_xxx.
 // Not static to allow third-party code to use that if they want to (but undocumented)
-ImGuiKey ImGui_ImplWin32_KeyEventToImGuiKey(WPARAM wParam, LPARAM lParam);
-ImGuiKey ImGui_ImplWin32_KeyEventToImGuiKey(WPARAM wParam, LPARAM lParam)
+extern "C" IMGUI_IMPL_API ImGuiKey ImGui_ImplWin32_KeyEventToImGuiKey(WPARAM wParam, LPARAM lParam);
+extern "C" IMGUI_IMPL_API ImGuiKey ImGui_ImplWin32_KeyEventToImGuiKey(WPARAM wParam, LPARAM lParam)
 {
     // There is no distinct VK_xxx for keypad enter, instead it is VK_RETURN + KF_EXTENDED.
     if ((wParam == VK_RETURN) && (HIWORD(lParam) & KF_EXTENDED))
@@ -764,10 +744,10 @@ static ImGuiMouseSource ImGui_ImplWin32_GetMouseSourceFromMessageExtraInfo()
 // PS: We treat DBLCLK messages as regular mouse down messages, so this code will work on windows classes that have the CS_DBLCLKS flag set. Our own example app code doesn't set this flag.
 
 // Copy either line into your .cpp file to forward declare the function:
-extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);                // Use ImGui::GetCurrentContext()
-extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandlerEx(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam, ImGuiIO &io); // Doesn't use ImGui::GetCurrentContext()
+extern "C" IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);                // Use ImGui::GetCurrentContext()
+extern "C" IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandlerEx(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam, ImGuiIO &io); // Doesn't use ImGui::GetCurrentContext()
 
-IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
+extern "C" IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam)
 {
     // Most backends don't have silent checks like this one, but we need it because WndProc are called early in CreateWindow().
     // We silently allow both context or just only backend data to be nullptr.
@@ -777,7 +757,7 @@ IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hwnd, UINT msg, WPARA
 }
 
 // This version is in theory thread-safe in the sense that no path should access ImGui::GetCurrentContext().
-IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandlerEx(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, ImGuiIO &io)
+extern "C" IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandlerEx(HWND hwnd, UINT msg, WPARAM wParam, LPARAM lParam, ImGuiIO &io)
 {
     ImGui_ImplWin32_Data *bd = ImGui_ImplWin32_GetBackendData(io);
     if (bd == nullptr)
@@ -973,17 +953,11 @@ IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandlerEx(HWND hwnd, UINT msg, WPA
         ImGui_ImplWin32_UpdateKeyboardCodePage(io);
         return 0;
     case WM_CHAR:
-        if (::IsWindowUnicode(hwnd))
+        assert(::IsWindowUnicode(hwnd));
         {
             // You can also use ToAscii()+GetKeyboardState() to retrieve characters.
             if (wParam > 0 && wParam < 0x10000)
                 io.AddInputCharacterUTF16((unsigned short)wParam);
-        }
-        else
-        {
-            wchar_t wch = 0;
-            ::MultiByteToWideChar(bd->KeyboardCodePage, MB_PRECOMPOSED, (char *)&wParam, 1, &wch, 1);
-            io.AddInputCharacter(wch);
         }
         return 0;
     case WM_SETCURSOR:
@@ -1022,7 +996,7 @@ static BOOL _IsWindowsVersionOrGreater(WORD major, WORD minor, WORD)
     typedef LONG(WINAPI * PFN_RtlVerifyVersionInfo)(OSVERSIONINFOEXW *, ULONG, ULONGLONG);
     static PFN_RtlVerifyVersionInfo RtlVerifyVersionInfoFn = nullptr;
     if (RtlVerifyVersionInfoFn == nullptr)
-        if (HMODULE ntdllModule = ::GetModuleHandleA("ntdll.dll"))
+        if (HMODULE ntdllModule = ::GetModuleHandleW(L"ntdll.dll"))
             RtlVerifyVersionInfoFn = (PFN_RtlVerifyVersionInfo)GetProcAddress(ntdllModule, "RtlVerifyVersionInfo");
     if (RtlVerifyVersionInfoFn == nullptr)
         return FALSE;
@@ -1069,11 +1043,11 @@ typedef HRESULT(WINAPI *PFN_GetDpiForMonitor)(HMONITOR, MONITOR_DPI_TYPE, UINT *
 typedef DPI_AWARENESS_CONTEXT(WINAPI *PFN_SetThreadDpiAwarenessContext)(DPI_AWARENESS_CONTEXT); // User32.lib + dll, Windows 10 v1607+ (Creators Update)
 
 // Helper function to enable DPI awareness without setting up a manifest
-void ImGui_ImplWin32_EnableDpiAwareness()
+extern "C" void ImGui_ImplWin32_EnableDpiAwareness()
 {
     if (_IsWindows10OrGreater())
     {
-        static HINSTANCE user32_dll = ::LoadLibraryA("user32.dll"); // Reference counted per-process
+        static HINSTANCE user32_dll = ::LoadLibraryW(L"user32.dll"); // Reference counted per-process
         if (PFN_SetThreadDpiAwarenessContext SetThreadDpiAwarenessContextFn = (PFN_SetThreadDpiAwarenessContext)::GetProcAddress(user32_dll, "SetThreadDpiAwarenessContext"))
         {
             SetThreadDpiAwarenessContextFn(DPI_AWARENESS_CONTEXT_PER_MONITOR_AWARE_V2);
@@ -1082,7 +1056,7 @@ void ImGui_ImplWin32_EnableDpiAwareness()
     }
     if (_IsWindows8Point1OrGreater())
     {
-        static HINSTANCE shcore_dll = ::LoadLibraryA("shcore.dll"); // Reference counted per-process
+        static HINSTANCE shcore_dll = ::LoadLibraryW(L"shcore.dll"); // Reference counted per-process
         if (PFN_SetProcessDpiAwareness SetProcessDpiAwarenessFn = (PFN_SetProcessDpiAwareness)::GetProcAddress(shcore_dll, "SetProcessDpiAwareness"))
         {
             SetProcessDpiAwarenessFn(PROCESS_PER_MONITOR_DPI_AWARE);
@@ -1098,12 +1072,12 @@ void ImGui_ImplWin32_EnableDpiAwareness()
 #pragma comment(lib, "gdi32") // Link with gdi32.lib for GetDeviceCaps(). MinGW will require linking with '-lgdi32'
 #endif
 
-float ImGui_ImplWin32_GetDpiScaleForMonitor(void *monitor)
+extern "C" float ImGui_ImplWin32_GetDpiScaleForMonitor(void *monitor)
 {
     UINT xdpi = 96, ydpi = 96;
     if (_IsWindows8Point1OrGreater())
     {
-        static HINSTANCE shcore_dll = ::LoadLibraryA("shcore.dll"); // Reference counted per-process
+        static HINSTANCE shcore_dll = ::LoadLibraryW(L"shcore.dll"); // Reference counted per-process
         static PFN_GetDpiForMonitor GetDpiForMonitorFn = nullptr;
         if (GetDpiForMonitorFn == nullptr && shcore_dll != nullptr)
             GetDpiForMonitorFn = (PFN_GetDpiForMonitor)::GetProcAddress(shcore_dll, "GetDpiForMonitor");
@@ -1124,7 +1098,7 @@ float ImGui_ImplWin32_GetDpiScaleForMonitor(void *monitor)
     return xdpi / 96.0f;
 }
 
-float ImGui_ImplWin32_GetDpiScaleForHwnd(void *hwnd)
+extern "C" float ImGui_ImplWin32_GetDpiScaleForHwnd(void *hwnd)
 {
     HMONITOR monitor = ::MonitorFromWindow((HWND)hwnd, MONITOR_DEFAULTTONEAREST);
     return ImGui_ImplWin32_GetDpiScaleForMonitor(monitor);
@@ -1141,7 +1115,7 @@ float ImGui_ImplWin32_GetDpiScaleForHwnd(void *hwnd)
 // [experimental]
 // Borrowed from GLFW's function updateFramebufferTransparency() in src/win32_window.c
 // (the Dwm* functions are Vista era functions but we are borrowing logic from GLFW)
-void ImGui_ImplWin32_EnableAlphaCompositing(void *hwnd)
+extern "C" void ImGui_ImplWin32_EnableAlphaCompositing(void *hwnd)
 {
     if (!_IsWindowsVistaOrGreater())
         return;

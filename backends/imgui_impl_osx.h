@@ -20,35 +20,15 @@
 // - Introduction, links and more at the top of imgui.cpp
 
 #pragma once
-#include "imgui.h" // IMGUI_IMPL_API
+#include "../imgui.h" // IMGUI_IMPL_API
 #ifndef IMGUI_DISABLE
 
-#ifdef __OBJC__
-
-@class NSEvent;
-@class NSView;
-
 // Follow "Getting Started" link and check examples/ folder to learn about using backends!
-IMGUI_IMPL_API bool ImGui_ImplOSX_Init(NSView *_Nonnull view);
-IMGUI_IMPL_API void ImGui_ImplOSX_Shutdown();
-IMGUI_IMPL_API void ImGui_ImplOSX_NewFrame(NSView *_Nullable view);
+extern "C" IMGUI_IMPL_API bool ImGui_ImplOSX_Init(void (*Platform_SetImeDataFn)(ImGuiContext *ctx, ImGuiViewport *viewport, ImGuiPlatformImeData *data));
+extern "C" IMGUI_IMPL_API void ImGui_ImplOSX_Shutdown();
+extern "C" IMGUI_IMPL_API void ImGui_ImplOSX_NewFrame(float delta_time_in_seconds);
 
-#endif
-
-//-----------------------------------------------------------------------------
-// C++ API
-//-----------------------------------------------------------------------------
-
-#ifdef IMGUI_IMPL_METAL_CPP_EXTENSIONS
-// #include <AppKit/AppKit.hpp>
-#ifndef __OBJC__
-
-// Follow "Getting Started" link and check examples/ folder to learn about using backends!
-IMGUI_IMPL_API bool ImGui_ImplOSX_Init(void *_Nonnull view);
-IMGUI_IMPL_API void ImGui_ImplOSX_Shutdown();
-IMGUI_IMPL_API void ImGui_ImplOSX_NewFrame(void *_Nullable view);
-
-#endif
-#endif
+extern "C" IMGUI_IMPL_API void ImGui_ImplOSX_ReshapeFunc(float width, float height, float width_scale, float height_scale);
+extern "C" IMGUI_IMPL_API void ImGui_ImplOSX_HandleEvent(void *event, void *view);
 
 #endif // #ifndef IMGUI_DISABLE

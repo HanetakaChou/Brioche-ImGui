@@ -34,247 +34,12 @@
 //  2018-11-30: Misc: Setting up io.BackendPlatformName so it can be displayed in the About Window.
 //  2018-03-22: Added GLUT Platform binding.
 
-#include "imgui.h"
+#include "../imgui.h"
 #ifndef IMGUI_DISABLE
 #include "imgui_impl_glut.h"
 #define GL_SILENCE_DEPRECATION
-#ifdef __APPLE__
-#include <GLUT/glut.h>
-#else
-#include <GL/freeglut.h>
-#endif
 
-#ifdef _MSC_VER
-#pragma warning(disable : 4505) // unreferenced local function has been removed (stb stuff)
-#endif
-
-static int g_Time = 0; // Current time, in milliseconds
-
-// Glut has one function for characters and one for "special keys". We map the characters in the 0..255 range and the keys above.
-static ImGuiKey ImGui_ImplGLUT_KeyToImGuiKey(int key)
-{
-    switch (key)
-    {
-    case '\t':
-        return ImGuiKey_Tab;
-    case 256 + GLUT_KEY_LEFT:
-        return ImGuiKey_LeftArrow;
-    case 256 + GLUT_KEY_RIGHT:
-        return ImGuiKey_RightArrow;
-    case 256 + GLUT_KEY_UP:
-        return ImGuiKey_UpArrow;
-    case 256 + GLUT_KEY_DOWN:
-        return ImGuiKey_DownArrow;
-    case 256 + GLUT_KEY_PAGE_UP:
-        return ImGuiKey_PageUp;
-    case 256 + GLUT_KEY_PAGE_DOWN:
-        return ImGuiKey_PageDown;
-    case 256 + GLUT_KEY_HOME:
-        return ImGuiKey_Home;
-    case 256 + GLUT_KEY_END:
-        return ImGuiKey_End;
-    case 256 + GLUT_KEY_INSERT:
-        return ImGuiKey_Insert;
-    case 127:
-        return ImGuiKey_Delete;
-    case 8:
-        return ImGuiKey_Backspace;
-    case ' ':
-        return ImGuiKey_Space;
-    case 13:
-        return ImGuiKey_Enter;
-    case 27:
-        return ImGuiKey_Escape;
-    case 39:
-        return ImGuiKey_Apostrophe;
-    case 44:
-        return ImGuiKey_Comma;
-    case 45:
-        return ImGuiKey_Minus;
-    case 46:
-        return ImGuiKey_Period;
-    case 47:
-        return ImGuiKey_Slash;
-    case 59:
-        return ImGuiKey_Semicolon;
-    case 61:
-        return ImGuiKey_Equal;
-    case 91:
-        return ImGuiKey_LeftBracket;
-    case 92:
-        return ImGuiKey_Backslash;
-    case 93:
-        return ImGuiKey_RightBracket;
-    case 96:
-        return ImGuiKey_GraveAccent;
-    // case 0:                         return ImGuiKey_CapsLock;
-    // case 0:                         return ImGuiKey_ScrollLock;
-    case 256 + 0x006D:
-        return ImGuiKey_NumLock;
-    // case 0:                         return ImGuiKey_PrintScreen;
-    // case 0:                         return ImGuiKey_Pause;
-    // case '0':                       return ImGuiKey_Keypad0;
-    // case '1':                       return ImGuiKey_Keypad1;
-    // case '2':                       return ImGuiKey_Keypad2;
-    // case '3':                       return ImGuiKey_Keypad3;
-    // case '4':                       return ImGuiKey_Keypad4;
-    // case '5':                       return ImGuiKey_Keypad5;
-    // case '6':                       return ImGuiKey_Keypad6;
-    // case '7':                       return ImGuiKey_Keypad7;
-    // case '8':                       return ImGuiKey_Keypad8;
-    // case '9':                       return ImGuiKey_Keypad9;
-    // case 46:                        return ImGuiKey_KeypadDecimal;
-    // case 47:                        return ImGuiKey_KeypadDivide;
-    case 42:
-        return ImGuiKey_KeypadMultiply;
-    // case 45:                        return ImGuiKey_KeypadSubtract;
-    case 43:
-        return ImGuiKey_KeypadAdd;
-    // case 13:                        return ImGuiKey_KeypadEnter;
-    // case 0:                         return ImGuiKey_KeypadEqual;
-    case 256 + 0x0072:
-        return ImGuiKey_LeftCtrl;
-    case 256 + 0x0070:
-        return ImGuiKey_LeftShift;
-    case 256 + 0x0074:
-        return ImGuiKey_LeftAlt;
-    // case 0:                         return ImGuiKey_LeftSuper;
-    case 256 + 0x0073:
-        return ImGuiKey_RightCtrl;
-    case 256 + 0x0071:
-        return ImGuiKey_RightShift;
-    case 256 + 0x0075:
-        return ImGuiKey_RightAlt;
-    // case 0:                         return ImGuiKey_RightSuper;
-    // case 0:                         return ImGuiKey_Menu;
-    case '0':
-        return ImGuiKey_0;
-    case '1':
-        return ImGuiKey_1;
-    case '2':
-        return ImGuiKey_2;
-    case '3':
-        return ImGuiKey_3;
-    case '4':
-        return ImGuiKey_4;
-    case '5':
-        return ImGuiKey_5;
-    case '6':
-        return ImGuiKey_6;
-    case '7':
-        return ImGuiKey_7;
-    case '8':
-        return ImGuiKey_8;
-    case '9':
-        return ImGuiKey_9;
-    case 'A':
-    case 'a':
-        return ImGuiKey_A;
-    case 'B':
-    case 'b':
-        return ImGuiKey_B;
-    case 'C':
-    case 'c':
-        return ImGuiKey_C;
-    case 'D':
-    case 'd':
-        return ImGuiKey_D;
-    case 'E':
-    case 'e':
-        return ImGuiKey_E;
-    case 'F':
-    case 'f':
-        return ImGuiKey_F;
-    case 'G':
-    case 'g':
-        return ImGuiKey_G;
-    case 'H':
-    case 'h':
-        return ImGuiKey_H;
-    case 'I':
-    case 'i':
-        return ImGuiKey_I;
-    case 'J':
-    case 'j':
-        return ImGuiKey_J;
-    case 'K':
-    case 'k':
-        return ImGuiKey_K;
-    case 'L':
-    case 'l':
-        return ImGuiKey_L;
-    case 'M':
-    case 'm':
-        return ImGuiKey_M;
-    case 'N':
-    case 'n':
-        return ImGuiKey_N;
-    case 'O':
-    case 'o':
-        return ImGuiKey_O;
-    case 'P':
-    case 'p':
-        return ImGuiKey_P;
-    case 'Q':
-    case 'q':
-        return ImGuiKey_Q;
-    case 'R':
-    case 'r':
-        return ImGuiKey_R;
-    case 'S':
-    case 's':
-        return ImGuiKey_S;
-    case 'T':
-    case 't':
-        return ImGuiKey_T;
-    case 'U':
-    case 'u':
-        return ImGuiKey_U;
-    case 'V':
-    case 'v':
-        return ImGuiKey_V;
-    case 'W':
-    case 'w':
-        return ImGuiKey_W;
-    case 'X':
-    case 'x':
-        return ImGuiKey_X;
-    case 'Y':
-    case 'y':
-        return ImGuiKey_Y;
-    case 'Z':
-    case 'z':
-        return ImGuiKey_Z;
-    case 256 + GLUT_KEY_F1:
-        return ImGuiKey_F1;
-    case 256 + GLUT_KEY_F2:
-        return ImGuiKey_F2;
-    case 256 + GLUT_KEY_F3:
-        return ImGuiKey_F3;
-    case 256 + GLUT_KEY_F4:
-        return ImGuiKey_F4;
-    case 256 + GLUT_KEY_F5:
-        return ImGuiKey_F5;
-    case 256 + GLUT_KEY_F6:
-        return ImGuiKey_F6;
-    case 256 + GLUT_KEY_F7:
-        return ImGuiKey_F7;
-    case 256 + GLUT_KEY_F8:
-        return ImGuiKey_F8;
-    case 256 + GLUT_KEY_F9:
-        return ImGuiKey_F9;
-    case 256 + GLUT_KEY_F10:
-        return ImGuiKey_F10;
-    case 256 + GLUT_KEY_F11:
-        return ImGuiKey_F11;
-    case 256 + GLUT_KEY_F12:
-        return ImGuiKey_F12;
-    default:
-        return ImGuiKey_None;
-    }
-}
-
-bool ImGui_ImplGLUT_Init()
+extern "C" bool ImGui_ImplGLUT_Init()
 {
     ImGuiIO &io = ImGui::GetIO();
     IMGUI_CHECKVERSION();
@@ -284,51 +49,29 @@ bool ImGui_ImplGLUT_Init()
 #else
     io.BackendPlatformName = "imgui_impl_glut";
 #endif
-    g_Time = 0;
 
     return true;
 }
 
-void ImGui_ImplGLUT_InstallFuncs()
-{
-    glutReshapeFunc(ImGui_ImplGLUT_ReshapeFunc);
-    glutMotionFunc(ImGui_ImplGLUT_MotionFunc);
-    glutPassiveMotionFunc(ImGui_ImplGLUT_MotionFunc);
-    glutMouseFunc(ImGui_ImplGLUT_MouseFunc);
-#ifdef __FREEGLUT_EXT_H__
-    glutMouseWheelFunc(ImGui_ImplGLUT_MouseWheelFunc);
-#endif
-    glutKeyboardFunc(ImGui_ImplGLUT_KeyboardFunc);
-    glutKeyboardUpFunc(ImGui_ImplGLUT_KeyboardUpFunc);
-    glutSpecialFunc(ImGui_ImplGLUT_SpecialFunc);
-    glutSpecialUpFunc(ImGui_ImplGLUT_SpecialUpFunc);
-}
-
-void ImGui_ImplGLUT_Shutdown()
+extern "C" void ImGui_ImplGLUT_Shutdown()
 {
     ImGuiIO &io = ImGui::GetIO();
     io.BackendPlatformName = nullptr;
 }
 
-void ImGui_ImplGLUT_NewFrame()
+extern "C" void ImGui_ImplGLUT_NewFrame(float delta_time_in_seconds)
 {
     // Setup time step
     ImGuiIO &io = ImGui::GetIO();
-    int current_time = glutGet(GLUT_ELAPSED_TIME);
-    int delta_time_ms = (current_time - g_Time);
-    if (delta_time_ms <= 0)
-        delta_time_ms = 1;
-    io.DeltaTime = delta_time_ms / 1000.0f;
-    g_Time = current_time;
+    io.DeltaTime = delta_time_in_seconds;
 }
 
-static void ImGui_ImplGLUT_UpdateKeyModifiers()
+static void ImGui_ImplGLUT_UpdateKeyModifiers(bool ctrl, bool shift, bool alt)
 {
     ImGuiIO &io = ImGui::GetIO();
-    int glut_key_mods = glutGetModifiers();
-    io.AddKeyEvent(ImGuiMod_Ctrl, (glut_key_mods & GLUT_ACTIVE_CTRL) != 0);
-    io.AddKeyEvent(ImGuiMod_Shift, (glut_key_mods & GLUT_ACTIVE_SHIFT) != 0);
-    io.AddKeyEvent(ImGuiMod_Alt, (glut_key_mods & GLUT_ACTIVE_ALT) != 0);
+    io.AddKeyEvent(ImGuiMod_Ctrl, ctrl);
+    io.AddKeyEvent(ImGuiMod_Shift, shift);
+    io.AddKeyEvent(ImGuiMod_Alt, alt);
 }
 
 static void ImGui_ImplGLUT_AddKeyEvent(ImGuiKey key, bool down, int native_keycode)
@@ -338,84 +81,694 @@ static void ImGui_ImplGLUT_AddKeyEvent(ImGuiKey key, bool down, int native_keyco
     io.SetKeyEventNativeData(key, native_keycode, -1); // To support legacy indexing (<1.87 user code)
 }
 
-void ImGui_ImplGLUT_KeyboardFunc(unsigned char c, int x, int y)
+static char internal_imgui_key_to_character(ImGuiKey key, bool shift, bool caps)
 {
-    // Send character to imgui
-    // printf("char_down_func %d '%c'\n", c, c);
-    ImGuiIO &io = ImGui::GetIO();
-    if (c >= 32)
+    static constexpr char imgui_key_to_character_unshift_uncaps_table[ImGuiKey_NamedKey_COUNT] = {
+        // digits row
+        [ImGuiKey_0 - ImGuiKey_NamedKey_BEGIN] = '0',
+        [ImGuiKey_1 -
+            ImGuiKey_NamedKey_BEGIN] = '1',
+        [ImGuiKey_2 -
+            ImGuiKey_NamedKey_BEGIN] = '2',
+        [ImGuiKey_3 -
+            ImGuiKey_NamedKey_BEGIN] = '3',
+        [ImGuiKey_4 -
+            ImGuiKey_NamedKey_BEGIN] = '4',
+        [ImGuiKey_5 -
+            ImGuiKey_NamedKey_BEGIN] = '5',
+        [ImGuiKey_6 -
+            ImGuiKey_NamedKey_BEGIN] = '6',
+        [ImGuiKey_7 -
+            ImGuiKey_NamedKey_BEGIN] = '7',
+        [ImGuiKey_8 -
+            ImGuiKey_NamedKey_BEGIN] = '8',
+        [ImGuiKey_9 -
+            ImGuiKey_NamedKey_BEGIN] = '9',
+
+        // letters -> lowercase
+        [ImGuiKey_A -
+            ImGuiKey_NamedKey_BEGIN] = 'a',
+        [ImGuiKey_B -
+            ImGuiKey_NamedKey_BEGIN] = 'b',
+        [ImGuiKey_C -
+            ImGuiKey_NamedKey_BEGIN] = 'c',
+        [ImGuiKey_D -
+            ImGuiKey_NamedKey_BEGIN] = 'd',
+        [ImGuiKey_E -
+            ImGuiKey_NamedKey_BEGIN] = 'e',
+        [ImGuiKey_F -
+            ImGuiKey_NamedKey_BEGIN] = 'f',
+        [ImGuiKey_G -
+            ImGuiKey_NamedKey_BEGIN] = 'g',
+        [ImGuiKey_H -
+            ImGuiKey_NamedKey_BEGIN] = 'h',
+        [ImGuiKey_I -
+            ImGuiKey_NamedKey_BEGIN] = 'i',
+        [ImGuiKey_J -
+            ImGuiKey_NamedKey_BEGIN] = 'j',
+        [ImGuiKey_K -
+            ImGuiKey_NamedKey_BEGIN] = 'k',
+        [ImGuiKey_L -
+            ImGuiKey_NamedKey_BEGIN] = 'l',
+        [ImGuiKey_M -
+            ImGuiKey_NamedKey_BEGIN] = 'm',
+        [ImGuiKey_N -
+            ImGuiKey_NamedKey_BEGIN] = 'n',
+        [ImGuiKey_O -
+            ImGuiKey_NamedKey_BEGIN] = 'o',
+        [ImGuiKey_P -
+            ImGuiKey_NamedKey_BEGIN] = 'p',
+        [ImGuiKey_Q -
+            ImGuiKey_NamedKey_BEGIN] = 'q',
+        [ImGuiKey_R -
+            ImGuiKey_NamedKey_BEGIN] = 'r',
+        [ImGuiKey_S -
+            ImGuiKey_NamedKey_BEGIN] = 's',
+        [ImGuiKey_T -
+            ImGuiKey_NamedKey_BEGIN] = 't',
+        [ImGuiKey_U -
+            ImGuiKey_NamedKey_BEGIN] = 'u',
+        [ImGuiKey_V -
+            ImGuiKey_NamedKey_BEGIN] = 'v',
+        [ImGuiKey_W -
+            ImGuiKey_NamedKey_BEGIN] = 'w',
+        [ImGuiKey_X -
+            ImGuiKey_NamedKey_BEGIN] = 'x',
+        [ImGuiKey_Y -
+            ImGuiKey_NamedKey_BEGIN] = 'y',
+        [ImGuiKey_Z -
+            ImGuiKey_NamedKey_BEGIN] = 'z',
+
+        // punctuation (US, unshifted)
+        [ImGuiKey_Minus -
+            ImGuiKey_NamedKey_BEGIN] = '-',
+        [ImGuiKey_Equal -
+            ImGuiKey_NamedKey_BEGIN] = '=',
+        [ImGuiKey_LeftBracket -
+            ImGuiKey_NamedKey_BEGIN] = '[',
+        [ImGuiKey_RightBracket -
+            ImGuiKey_NamedKey_BEGIN] = ']',
+        [ImGuiKey_Backslash -
+            ImGuiKey_NamedKey_BEGIN] = '\\',
+        [ImGuiKey_Semicolon -
+            ImGuiKey_NamedKey_BEGIN] = ';',
+        [ImGuiKey_Apostrophe -
+            ImGuiKey_NamedKey_BEGIN] = '\'',
+        [ImGuiKey_GraveAccent -
+            ImGuiKey_NamedKey_BEGIN] = '`',
+        [ImGuiKey_Comma -
+            ImGuiKey_NamedKey_BEGIN] = ',',
+        [ImGuiKey_Period -
+            ImGuiKey_NamedKey_BEGIN] = '.',
+        [ImGuiKey_Slash -
+            ImGuiKey_NamedKey_BEGIN] = '/',
+
+        // space
+        [ImGuiKey_Space -
+            ImGuiKey_NamedKey_BEGIN] = ' ',
+
+        // keypad
+        [ImGuiKey_Keypad0 -
+            ImGuiKey_NamedKey_BEGIN] = '0',
+        [ImGuiKey_Keypad1 -
+            ImGuiKey_NamedKey_BEGIN] = '1',
+        [ImGuiKey_Keypad2 -
+            ImGuiKey_NamedKey_BEGIN] = '2',
+        [ImGuiKey_Keypad3 -
+            ImGuiKey_NamedKey_BEGIN] = '3',
+        [ImGuiKey_Keypad4 -
+            ImGuiKey_NamedKey_BEGIN] = '4',
+        [ImGuiKey_Keypad5 -
+            ImGuiKey_NamedKey_BEGIN] = '5',
+        [ImGuiKey_Keypad6 -
+            ImGuiKey_NamedKey_BEGIN] = '6',
+        [ImGuiKey_Keypad7 -
+            ImGuiKey_NamedKey_BEGIN] = '7',
+        [ImGuiKey_Keypad8 -
+            ImGuiKey_NamedKey_BEGIN] = '8',
+        [ImGuiKey_Keypad9 -
+            ImGuiKey_NamedKey_BEGIN] = '9',
+        [ImGuiKey_KeypadDivide -
+            ImGuiKey_NamedKey_BEGIN] = '/',
+        [ImGuiKey_KeypadMultiply -
+            ImGuiKey_NamedKey_BEGIN] = '*',
+        [ImGuiKey_KeypadSubtract -
+            ImGuiKey_NamedKey_BEGIN] = '-',
+        [ImGuiKey_KeypadAdd -
+            ImGuiKey_NamedKey_BEGIN] = '+',
+        [ImGuiKey_KeypadDecimal -
+            ImGuiKey_NamedKey_BEGIN] = '.',
+
+        // control chars
+        [ImGuiKey_Escape -
+            ImGuiKey_NamedKey_BEGIN] = '\x1B', // ESC
+        [ImGuiKey_Backspace -
+            ImGuiKey_NamedKey_BEGIN] = '\b',
+        [ImGuiKey_Tab -
+            ImGuiKey_NamedKey_BEGIN] = '\t',
+        [ImGuiKey_Enter -
+            ImGuiKey_NamedKey_BEGIN] = '\n',
+        [ImGuiKey_KeypadEnter -
+            ImGuiKey_NamedKey_BEGIN] = '\n',
+        [ImGuiKey_Delete -
+            ImGuiKey_NamedKey_BEGIN] = '\x7F', // DEL
+    };
+
+    static constexpr char imgui_key_to_character_shift_uncaps_table[ImGuiKey_NamedKey_COUNT] = {
+        // digits row with shift
+        [ImGuiKey_1 - ImGuiKey_NamedKey_BEGIN] = '!',
+        [ImGuiKey_2 -
+            ImGuiKey_NamedKey_BEGIN] = '@',
+        [ImGuiKey_3 -
+            ImGuiKey_NamedKey_BEGIN] = '#',
+        [ImGuiKey_4 -
+            ImGuiKey_NamedKey_BEGIN] = '$',
+        [ImGuiKey_5 -
+            ImGuiKey_NamedKey_BEGIN] = '%',
+        [ImGuiKey_6 -
+            ImGuiKey_NamedKey_BEGIN] = '^',
+        [ImGuiKey_7 -
+            ImGuiKey_NamedKey_BEGIN] = '&',
+        [ImGuiKey_8 -
+            ImGuiKey_NamedKey_BEGIN] = '*',
+        [ImGuiKey_9 -
+            ImGuiKey_NamedKey_BEGIN] = '(',
+        [ImGuiKey_0 -
+            ImGuiKey_NamedKey_BEGIN] = ')',
+
+        // letters -> uppercase
+        [ImGuiKey_A -
+            ImGuiKey_NamedKey_BEGIN] = 'A',
+        [ImGuiKey_B -
+            ImGuiKey_NamedKey_BEGIN] = 'B',
+        [ImGuiKey_C -
+            ImGuiKey_NamedKey_BEGIN] = 'C',
+        [ImGuiKey_D -
+            ImGuiKey_NamedKey_BEGIN] = 'D',
+        [ImGuiKey_E -
+            ImGuiKey_NamedKey_BEGIN] = 'E',
+        [ImGuiKey_F -
+            ImGuiKey_NamedKey_BEGIN] = 'F',
+        [ImGuiKey_G -
+            ImGuiKey_NamedKey_BEGIN] = 'G',
+        [ImGuiKey_H -
+            ImGuiKey_NamedKey_BEGIN] = 'H',
+        [ImGuiKey_I -
+            ImGuiKey_NamedKey_BEGIN] = 'I',
+        [ImGuiKey_J -
+            ImGuiKey_NamedKey_BEGIN] = 'J',
+        [ImGuiKey_K -
+            ImGuiKey_NamedKey_BEGIN] = 'K',
+        [ImGuiKey_L -
+            ImGuiKey_NamedKey_BEGIN] = 'L',
+        [ImGuiKey_M -
+            ImGuiKey_NamedKey_BEGIN] = 'M',
+        [ImGuiKey_N -
+            ImGuiKey_NamedKey_BEGIN] = 'N',
+        [ImGuiKey_O -
+            ImGuiKey_NamedKey_BEGIN] = 'O',
+        [ImGuiKey_P -
+            ImGuiKey_NamedKey_BEGIN] = 'P',
+        [ImGuiKey_Q -
+            ImGuiKey_NamedKey_BEGIN] = 'Q',
+        [ImGuiKey_R -
+            ImGuiKey_NamedKey_BEGIN] = 'R',
+        [ImGuiKey_S -
+            ImGuiKey_NamedKey_BEGIN] = 'S',
+        [ImGuiKey_T -
+            ImGuiKey_NamedKey_BEGIN] = 'T',
+        [ImGuiKey_U -
+            ImGuiKey_NamedKey_BEGIN] = 'U',
+        [ImGuiKey_V -
+            ImGuiKey_NamedKey_BEGIN] = 'V',
+        [ImGuiKey_W -
+            ImGuiKey_NamedKey_BEGIN] = 'W',
+        [ImGuiKey_X -
+            ImGuiKey_NamedKey_BEGIN] = 'X',
+        [ImGuiKey_Y -
+            ImGuiKey_NamedKey_BEGIN] = 'Y',
+        [ImGuiKey_Z -
+            ImGuiKey_NamedKey_BEGIN] = 'Z',
+
+        // punctuation with shift
+        [ImGuiKey_Minus -
+            ImGuiKey_NamedKey_BEGIN] = '_',
+        [ImGuiKey_Equal -
+            ImGuiKey_NamedKey_BEGIN] = '+',
+        [ImGuiKey_LeftBracket -
+            ImGuiKey_NamedKey_BEGIN] = '{',
+        [ImGuiKey_RightBracket -
+            ImGuiKey_NamedKey_BEGIN] = '}',
+        [ImGuiKey_Backslash -
+            ImGuiKey_NamedKey_BEGIN] = '|',
+        [ImGuiKey_Semicolon -
+            ImGuiKey_NamedKey_BEGIN] = ':',
+        [ImGuiKey_Apostrophe -
+            ImGuiKey_NamedKey_BEGIN] = '"',
+        [ImGuiKey_GraveAccent -
+            ImGuiKey_NamedKey_BEGIN] = '~',
+        [ImGuiKey_Comma -
+            ImGuiKey_NamedKey_BEGIN] = '<',
+        [ImGuiKey_Period -
+            ImGuiKey_NamedKey_BEGIN] = '>',
+        [ImGuiKey_Slash -
+            ImGuiKey_NamedKey_BEGIN] = '?',
+
+        // space
+        [ImGuiKey_Space -
+            ImGuiKey_NamedKey_BEGIN] = ' ',
+
+        // keypad
+        [ImGuiKey_Keypad0 -
+            ImGuiKey_NamedKey_BEGIN] = '0',
+        [ImGuiKey_Keypad1 -
+            ImGuiKey_NamedKey_BEGIN] = '1',
+        [ImGuiKey_Keypad2 -
+            ImGuiKey_NamedKey_BEGIN] = '2',
+        [ImGuiKey_Keypad3 -
+            ImGuiKey_NamedKey_BEGIN] = '3',
+        [ImGuiKey_Keypad4 -
+            ImGuiKey_NamedKey_BEGIN] = '4',
+        [ImGuiKey_Keypad5 -
+            ImGuiKey_NamedKey_BEGIN] = '5',
+        [ImGuiKey_Keypad6 -
+            ImGuiKey_NamedKey_BEGIN] = '6',
+        [ImGuiKey_Keypad7 -
+            ImGuiKey_NamedKey_BEGIN] = '7',
+        [ImGuiKey_Keypad8 -
+            ImGuiKey_NamedKey_BEGIN] = '8',
+        [ImGuiKey_Keypad9 -
+            ImGuiKey_NamedKey_BEGIN] = '9',
+        [ImGuiKey_KeypadDivide -
+            ImGuiKey_NamedKey_BEGIN] = '/',
+        [ImGuiKey_KeypadMultiply -
+            ImGuiKey_NamedKey_BEGIN] = '*',
+        [ImGuiKey_KeypadSubtract -
+            ImGuiKey_NamedKey_BEGIN] = '-',
+        [ImGuiKey_KeypadAdd -
+            ImGuiKey_NamedKey_BEGIN] = '+',
+        [ImGuiKey_KeypadDecimal -
+            ImGuiKey_NamedKey_BEGIN] = '.',
+
+        // control chars
+        [ImGuiKey_Escape -
+            ImGuiKey_NamedKey_BEGIN] = '\x1B', // ESC
+        [ImGuiKey_Backspace -
+            ImGuiKey_NamedKey_BEGIN] = '\b',
+        [ImGuiKey_Tab -
+            ImGuiKey_NamedKey_BEGIN] = '\t',
+        [ImGuiKey_Enter -
+            ImGuiKey_NamedKey_BEGIN] = '\n',
+        [ImGuiKey_KeypadEnter -
+            ImGuiKey_NamedKey_BEGIN] = '\n',
+        [ImGuiKey_Delete -
+            ImGuiKey_NamedKey_BEGIN] = '\x7F', // DEL
+    };
+
+    static constexpr char imgui_key_to_character_unshift_caps_table[ImGuiKey_NamedKey_COUNT] = {
+        // digits row
+        [ImGuiKey_0 - ImGuiKey_NamedKey_BEGIN] = '0',
+        [ImGuiKey_1 -
+            ImGuiKey_NamedKey_BEGIN] = '1',
+        [ImGuiKey_2 -
+            ImGuiKey_NamedKey_BEGIN] = '2',
+        [ImGuiKey_3 -
+            ImGuiKey_NamedKey_BEGIN] = '3',
+        [ImGuiKey_4 -
+            ImGuiKey_NamedKey_BEGIN] = '4',
+        [ImGuiKey_5 -
+            ImGuiKey_NamedKey_BEGIN] = '5',
+        [ImGuiKey_6 -
+            ImGuiKey_NamedKey_BEGIN] = '6',
+        [ImGuiKey_7 -
+            ImGuiKey_NamedKey_BEGIN] = '7',
+        [ImGuiKey_8 -
+            ImGuiKey_NamedKey_BEGIN] = '8',
+        [ImGuiKey_9 -
+            ImGuiKey_NamedKey_BEGIN] = '9',
+
+        // letters -> uppercase
+        [ImGuiKey_A -
+            ImGuiKey_NamedKey_BEGIN] = 'A',
+        [ImGuiKey_B -
+            ImGuiKey_NamedKey_BEGIN] = 'B',
+        [ImGuiKey_C -
+            ImGuiKey_NamedKey_BEGIN] = 'C',
+        [ImGuiKey_D -
+            ImGuiKey_NamedKey_BEGIN] = 'D',
+        [ImGuiKey_E -
+            ImGuiKey_NamedKey_BEGIN] = 'E',
+        [ImGuiKey_F -
+            ImGuiKey_NamedKey_BEGIN] = 'F',
+        [ImGuiKey_G -
+            ImGuiKey_NamedKey_BEGIN] = 'G',
+        [ImGuiKey_H -
+            ImGuiKey_NamedKey_BEGIN] = 'H',
+        [ImGuiKey_I -
+            ImGuiKey_NamedKey_BEGIN] = 'I',
+        [ImGuiKey_J -
+            ImGuiKey_NamedKey_BEGIN] = 'J',
+        [ImGuiKey_K -
+            ImGuiKey_NamedKey_BEGIN] = 'K',
+        [ImGuiKey_L -
+            ImGuiKey_NamedKey_BEGIN] = 'L',
+        [ImGuiKey_M -
+            ImGuiKey_NamedKey_BEGIN] = 'M',
+        [ImGuiKey_N -
+            ImGuiKey_NamedKey_BEGIN] = 'N',
+        [ImGuiKey_O -
+            ImGuiKey_NamedKey_BEGIN] = 'O',
+        [ImGuiKey_P -
+            ImGuiKey_NamedKey_BEGIN] = 'P',
+        [ImGuiKey_Q -
+            ImGuiKey_NamedKey_BEGIN] = 'Q',
+        [ImGuiKey_R -
+            ImGuiKey_NamedKey_BEGIN] = 'R',
+        [ImGuiKey_S -
+            ImGuiKey_NamedKey_BEGIN] = 'S',
+        [ImGuiKey_T -
+            ImGuiKey_NamedKey_BEGIN] = 'T',
+        [ImGuiKey_U -
+            ImGuiKey_NamedKey_BEGIN] = 'U',
+        [ImGuiKey_V -
+            ImGuiKey_NamedKey_BEGIN] = 'V',
+        [ImGuiKey_W -
+            ImGuiKey_NamedKey_BEGIN] = 'W',
+        [ImGuiKey_X -
+            ImGuiKey_NamedKey_BEGIN] = 'X',
+        [ImGuiKey_Y -
+            ImGuiKey_NamedKey_BEGIN] = 'Y',
+        [ImGuiKey_Z -
+            ImGuiKey_NamedKey_BEGIN] = 'Z',
+
+        // punctuation (US, unshifted)
+        [ImGuiKey_Minus -
+            ImGuiKey_NamedKey_BEGIN] = '-',
+        [ImGuiKey_Equal -
+            ImGuiKey_NamedKey_BEGIN] = '=',
+        [ImGuiKey_LeftBracket -
+            ImGuiKey_NamedKey_BEGIN] = '[',
+        [ImGuiKey_RightBracket -
+            ImGuiKey_NamedKey_BEGIN] = ']',
+        [ImGuiKey_Backslash -
+            ImGuiKey_NamedKey_BEGIN] = '\\',
+        [ImGuiKey_Semicolon -
+            ImGuiKey_NamedKey_BEGIN] = ';',
+        [ImGuiKey_Apostrophe -
+            ImGuiKey_NamedKey_BEGIN] = '\'',
+        [ImGuiKey_GraveAccent -
+            ImGuiKey_NamedKey_BEGIN] = '`',
+        [ImGuiKey_Comma -
+            ImGuiKey_NamedKey_BEGIN] = ',',
+        [ImGuiKey_Period -
+            ImGuiKey_NamedKey_BEGIN] = '.',
+        [ImGuiKey_Slash -
+            ImGuiKey_NamedKey_BEGIN] = '/',
+
+        // space
+        [ImGuiKey_Space -
+            ImGuiKey_NamedKey_BEGIN] = ' ',
+
+        // keypad
+        [ImGuiKey_Keypad0 -
+            ImGuiKey_NamedKey_BEGIN] = '0',
+        [ImGuiKey_Keypad1 -
+            ImGuiKey_NamedKey_BEGIN] = '1',
+        [ImGuiKey_Keypad2 -
+            ImGuiKey_NamedKey_BEGIN] = '2',
+        [ImGuiKey_Keypad3 -
+            ImGuiKey_NamedKey_BEGIN] = '3',
+        [ImGuiKey_Keypad4 -
+            ImGuiKey_NamedKey_BEGIN] = '4',
+        [ImGuiKey_Keypad5 -
+            ImGuiKey_NamedKey_BEGIN] = '5',
+        [ImGuiKey_Keypad6 -
+            ImGuiKey_NamedKey_BEGIN] = '6',
+        [ImGuiKey_Keypad7 -
+            ImGuiKey_NamedKey_BEGIN] = '7',
+        [ImGuiKey_Keypad8 -
+            ImGuiKey_NamedKey_BEGIN] = '8',
+        [ImGuiKey_Keypad9 -
+            ImGuiKey_NamedKey_BEGIN] = '9',
+        [ImGuiKey_KeypadDivide -
+            ImGuiKey_NamedKey_BEGIN] = '/',
+        [ImGuiKey_KeypadMultiply -
+            ImGuiKey_NamedKey_BEGIN] = '*',
+        [ImGuiKey_KeypadSubtract -
+            ImGuiKey_NamedKey_BEGIN] = '-',
+        [ImGuiKey_KeypadAdd -
+            ImGuiKey_NamedKey_BEGIN] = '+',
+        [ImGuiKey_KeypadDecimal -
+            ImGuiKey_NamedKey_BEGIN] = '.',
+
+        // control chars
+        [ImGuiKey_Escape -
+            ImGuiKey_NamedKey_BEGIN] = '\x1B', // ESC
+        [ImGuiKey_Backspace -
+            ImGuiKey_NamedKey_BEGIN] = '\b',
+        [ImGuiKey_Tab -
+            ImGuiKey_NamedKey_BEGIN] = '\t',
+        [ImGuiKey_Enter -
+            ImGuiKey_NamedKey_BEGIN] = '\n',
+        [ImGuiKey_KeypadEnter -
+            ImGuiKey_NamedKey_BEGIN] = '\n',
+        [ImGuiKey_Delete -
+            ImGuiKey_NamedKey_BEGIN] = '\x7F', // DEL
+    };
+
+    static constexpr char imgui_key_to_character_shift_caps_table[ImGuiKey_NamedKey_COUNT] = {
+        // digits row with shift
+        [ImGuiKey_1 - ImGuiKey_NamedKey_BEGIN] = '!',
+        [ImGuiKey_2 -
+            ImGuiKey_NamedKey_BEGIN] = '@',
+        [ImGuiKey_3 -
+            ImGuiKey_NamedKey_BEGIN] = '#',
+        [ImGuiKey_4 -
+            ImGuiKey_NamedKey_BEGIN] = '$',
+        [ImGuiKey_5 -
+            ImGuiKey_NamedKey_BEGIN] = '%',
+        [ImGuiKey_6 -
+            ImGuiKey_NamedKey_BEGIN] = '^',
+        [ImGuiKey_7 -
+            ImGuiKey_NamedKey_BEGIN] = '&',
+        [ImGuiKey_8 -
+            ImGuiKey_NamedKey_BEGIN] = '*',
+        [ImGuiKey_9 -
+            ImGuiKey_NamedKey_BEGIN] = '(',
+        [ImGuiKey_0 -
+            ImGuiKey_NamedKey_BEGIN] = ')',
+
+        // letters -> lowercase
+        [ImGuiKey_A -
+            ImGuiKey_NamedKey_BEGIN] = 'a',
+        [ImGuiKey_B -
+            ImGuiKey_NamedKey_BEGIN] = 'b',
+        [ImGuiKey_C -
+            ImGuiKey_NamedKey_BEGIN] = 'c',
+        [ImGuiKey_D -
+            ImGuiKey_NamedKey_BEGIN] = 'd',
+        [ImGuiKey_E -
+            ImGuiKey_NamedKey_BEGIN] = 'e',
+        [ImGuiKey_F -
+            ImGuiKey_NamedKey_BEGIN] = 'f',
+        [ImGuiKey_G -
+            ImGuiKey_NamedKey_BEGIN] = 'g',
+        [ImGuiKey_H -
+            ImGuiKey_NamedKey_BEGIN] = 'h',
+        [ImGuiKey_I -
+            ImGuiKey_NamedKey_BEGIN] = 'i',
+        [ImGuiKey_J -
+            ImGuiKey_NamedKey_BEGIN] = 'j',
+        [ImGuiKey_K -
+            ImGuiKey_NamedKey_BEGIN] = 'k',
+        [ImGuiKey_L -
+            ImGuiKey_NamedKey_BEGIN] = 'l',
+        [ImGuiKey_M -
+            ImGuiKey_NamedKey_BEGIN] = 'm',
+        [ImGuiKey_N -
+            ImGuiKey_NamedKey_BEGIN] = 'n',
+        [ImGuiKey_O -
+            ImGuiKey_NamedKey_BEGIN] = 'o',
+        [ImGuiKey_P -
+            ImGuiKey_NamedKey_BEGIN] = 'p',
+        [ImGuiKey_Q -
+            ImGuiKey_NamedKey_BEGIN] = 'q',
+        [ImGuiKey_R -
+            ImGuiKey_NamedKey_BEGIN] = 'r',
+        [ImGuiKey_S -
+            ImGuiKey_NamedKey_BEGIN] = 's',
+        [ImGuiKey_T -
+            ImGuiKey_NamedKey_BEGIN] = 't',
+        [ImGuiKey_U -
+            ImGuiKey_NamedKey_BEGIN] = 'u',
+        [ImGuiKey_V -
+            ImGuiKey_NamedKey_BEGIN] = 'v',
+        [ImGuiKey_W -
+            ImGuiKey_NamedKey_BEGIN] = 'w',
+        [ImGuiKey_X -
+            ImGuiKey_NamedKey_BEGIN] = 'x',
+        [ImGuiKey_Y -
+            ImGuiKey_NamedKey_BEGIN] = 'y',
+        [ImGuiKey_Z -
+            ImGuiKey_NamedKey_BEGIN] = 'z',
+
+        // punctuation with shift
+        [ImGuiKey_Minus -
+            ImGuiKey_NamedKey_BEGIN] = '_',
+        [ImGuiKey_Equal -
+            ImGuiKey_NamedKey_BEGIN] = '+',
+        [ImGuiKey_LeftBracket -
+            ImGuiKey_NamedKey_BEGIN] = '{',
+        [ImGuiKey_RightBracket -
+            ImGuiKey_NamedKey_BEGIN] = '}',
+        [ImGuiKey_Backslash -
+            ImGuiKey_NamedKey_BEGIN] = '|',
+        [ImGuiKey_Semicolon -
+            ImGuiKey_NamedKey_BEGIN] = ':',
+        [ImGuiKey_Apostrophe -
+            ImGuiKey_NamedKey_BEGIN] = '"',
+        [ImGuiKey_GraveAccent -
+            ImGuiKey_NamedKey_BEGIN] = '~',
+        [ImGuiKey_Comma -
+            ImGuiKey_NamedKey_BEGIN] = '<',
+        [ImGuiKey_Period -
+            ImGuiKey_NamedKey_BEGIN] = '>',
+        [ImGuiKey_Slash -
+            ImGuiKey_NamedKey_BEGIN] = '?',
+
+        // space
+        [ImGuiKey_Space -
+            ImGuiKey_NamedKey_BEGIN] = ' ',
+
+        // keypad
+        [ImGuiKey_Keypad0 -
+            ImGuiKey_NamedKey_BEGIN] = '0',
+        [ImGuiKey_Keypad1 -
+            ImGuiKey_NamedKey_BEGIN] = '1',
+        [ImGuiKey_Keypad2 -
+            ImGuiKey_NamedKey_BEGIN] = '2',
+        [ImGuiKey_Keypad3 -
+            ImGuiKey_NamedKey_BEGIN] = '3',
+        [ImGuiKey_Keypad4 -
+            ImGuiKey_NamedKey_BEGIN] = '4',
+        [ImGuiKey_Keypad5 -
+            ImGuiKey_NamedKey_BEGIN] = '5',
+        [ImGuiKey_Keypad6 -
+            ImGuiKey_NamedKey_BEGIN] = '6',
+        [ImGuiKey_Keypad7 -
+            ImGuiKey_NamedKey_BEGIN] = '7',
+        [ImGuiKey_Keypad8 -
+            ImGuiKey_NamedKey_BEGIN] = '8',
+        [ImGuiKey_Keypad9 -
+            ImGuiKey_NamedKey_BEGIN] = '9',
+        [ImGuiKey_KeypadDivide -
+            ImGuiKey_NamedKey_BEGIN] = '/',
+        [ImGuiKey_KeypadMultiply -
+            ImGuiKey_NamedKey_BEGIN] = '*',
+        [ImGuiKey_KeypadSubtract -
+            ImGuiKey_NamedKey_BEGIN] = '-',
+        [ImGuiKey_KeypadAdd -
+            ImGuiKey_NamedKey_BEGIN] = '+',
+        [ImGuiKey_KeypadDecimal -
+            ImGuiKey_NamedKey_BEGIN] = '.',
+
+        // control chars
+        [ImGuiKey_Escape -
+            ImGuiKey_NamedKey_BEGIN] = '\x1B', // ESC
+        [ImGuiKey_Backspace -
+            ImGuiKey_NamedKey_BEGIN] = '\b',
+        [ImGuiKey_Tab -
+            ImGuiKey_NamedKey_BEGIN] = '\t',
+        [ImGuiKey_Enter -
+            ImGuiKey_NamedKey_BEGIN] = '\n',
+        [ImGuiKey_KeypadEnter -
+            ImGuiKey_NamedKey_BEGIN] = '\n',
+        [ImGuiKey_Delete -
+            ImGuiKey_NamedKey_BEGIN] = '\x7F', // DEL
+    };
+
+    if ((key >= ImGuiKey_NamedKey_BEGIN) && (key < ImGuiKey_NamedKey_END))
+    {
+        if (!shift)
+        {
+            if (!caps)
+            {
+                return imgui_key_to_character_unshift_uncaps_table[key - ImGuiKey_NamedKey_BEGIN];
+            }
+            else
+            {
+                return imgui_key_to_character_unshift_caps_table[key - ImGuiKey_NamedKey_BEGIN];
+            }
+        }
+        else
+        {
+            if (!caps)
+            {
+                return imgui_key_to_character_shift_uncaps_table[key - ImGuiKey_NamedKey_BEGIN];
+            }
+            else
+            {
+                return imgui_key_to_character_shift_caps_table[key - ImGuiKey_NamedKey_BEGIN];
+            }
+        }
+    }
+    else
+    {
+        return '\0';
+    }
+}
+
+extern "C" void ImGui_ImplGLUT_KeyboardFunc(int key, bool ctrl, bool shift, bool alt, bool caps)
+{
+    ImGuiKey const imgui_key = static_cast<ImGuiKey>(key);
+
+    char const c = internal_imgui_key_to_character(imgui_key, shift, caps);
+
+    if ('\0' != c)
+    {
+        ImGuiIO &io = ImGui::GetIO();
         io.AddInputCharacter((unsigned int)c);
+    }
 
-    ImGuiKey key = ImGui_ImplGLUT_KeyToImGuiKey(c);
-    ImGui_ImplGLUT_AddKeyEvent(key, true, c);
-    ImGui_ImplGLUT_UpdateKeyModifiers();
-    (void)x;
-    (void)y; // Unused
+    ImGui_ImplGLUT_AddKeyEvent(imgui_key, true, key);
+    ImGui_ImplGLUT_UpdateKeyModifiers(ctrl, shift, alt);
 }
 
-void ImGui_ImplGLUT_KeyboardUpFunc(unsigned char c, int x, int y)
+extern "C" void ImGui_ImplGLUT_KeyboardUpFunc(int key, bool ctrl, bool shift, bool alt, bool caps)
 {
-    // printf("char_up_func %d '%c'\n", c, c);
-    ImGuiKey key = ImGui_ImplGLUT_KeyToImGuiKey(c);
-    ImGui_ImplGLUT_AddKeyEvent(key, false, c);
-    ImGui_ImplGLUT_UpdateKeyModifiers();
-    (void)x;
-    (void)y; // Unused
+    ImGuiKey imgui_key = static_cast<ImGuiKey>(key);
+    ImGui_ImplGLUT_AddKeyEvent(imgui_key, false, key);
+    ImGui_ImplGLUT_UpdateKeyModifiers(ctrl, shift, alt);
 }
 
-void ImGui_ImplGLUT_SpecialFunc(int key, int x, int y)
-{
-    // printf("key_down_func %d\n", key);
-    ImGuiKey imgui_key = ImGui_ImplGLUT_KeyToImGuiKey(key + 256);
-    ImGui_ImplGLUT_AddKeyEvent(imgui_key, true, key + 256);
-    ImGui_ImplGLUT_UpdateKeyModifiers();
-    (void)x;
-    (void)y; // Unused
-}
-
-void ImGui_ImplGLUT_SpecialUpFunc(int key, int x, int y)
-{
-    // printf("key_up_func %d\n", key);
-    ImGuiKey imgui_key = ImGui_ImplGLUT_KeyToImGuiKey(key + 256);
-    ImGui_ImplGLUT_AddKeyEvent(imgui_key, false, key + 256);
-    ImGui_ImplGLUT_UpdateKeyModifiers();
-    (void)x;
-    (void)y; // Unused
-}
-
-void ImGui_ImplGLUT_MouseFunc(int glut_button, int state, int x, int y)
+extern "C" void ImGui_ImplGLUT_MouseFunc(int button, bool down, int x, int y)
 {
     ImGuiIO &io = ImGui::GetIO();
     io.AddMousePosEvent((float)x, (float)y);
-    int button = -1;
-    if (glut_button == GLUT_LEFT_BUTTON)
-        button = 0;
-    if (glut_button == GLUT_RIGHT_BUTTON)
-        button = 1;
-    if (glut_button == GLUT_MIDDLE_BUTTON)
-        button = 2;
-    if (button != -1 && (state == GLUT_DOWN || state == GLUT_UP))
-        io.AddMouseButtonEvent(button, state == GLUT_DOWN);
+
+    ImGuiMouseButton imgui_button = static_cast<ImGuiMouseButton>(button);
+    assert(ImGuiMouseButton_Left == imgui_button || ImGuiMouseButton_Right == imgui_button || ImGuiMouseButton_Middle == imgui_button);
+
+    io.AddMouseButtonEvent(imgui_button, down);
 }
 
-#ifdef __FREEGLUT_EXT_H__
-void ImGui_ImplGLUT_MouseWheelFunc(int button, int dir, int x, int y)
+extern "C" void ImGui_ImplGLUT_MouseWheelFunc(bool dir, int x, int y)
 {
     ImGuiIO &io = ImGui::GetIO();
     io.AddMousePosEvent((float)x, (float)y);
-    if (dir != 0)
-        io.AddMouseWheelEvent(0.0f, dir > 0 ? 1.0f : -1.0f);
-    (void)button; // Unused
-}
-#endif
 
-void ImGui_ImplGLUT_ReshapeFunc(int w, int h)
+    // true: UP
+    // false: DOWN
+    io.AddMouseWheelEvent(0.0f, dir ? 1.0f : -1.0f);
+}
+
+extern "C" void ImGui_ImplGLUT_ReshapeFunc(int w, int h)
 {
     ImGuiIO &io = ImGui::GetIO();
     io.DisplaySize = ImVec2((float)w, (float)h);
 }
 
-void ImGui_ImplGLUT_MotionFunc(int x, int y)
+extern "C" void ImGui_ImplGLUT_MotionFunc(int x, int y)
 {
     ImGuiIO &io = ImGui::GetIO();
     io.AddMousePosEvent((float)x, (float)y);

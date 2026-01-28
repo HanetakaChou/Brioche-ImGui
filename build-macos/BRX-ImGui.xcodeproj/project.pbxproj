@@ -1,0 +1,760 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		841B70CE2F11CB4000F6DB4C /* imgui_impl_osx.mm in Sources */ = {isa = PBXBuildFile; fileRef = 841B70CD2F11CB4000F6DB4C /* imgui_impl_osx.mm */; };
+		8440AE9C2F101A8E00D2E068 /* imgui_impl_brx.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8440AE9B2F101A8E00D2E068 /* imgui_impl_brx.cpp */; };
+		8440AEA22F101AA400D2E068 /* imgui_tables.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8440AEA02F101AA400D2E068 /* imgui_tables.cpp */; };
+		8440AEA32F101AA400D2E068 /* imgui.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8440AE9D2F101AA400D2E068 /* imgui.cpp */; };
+		8440AEA42F101AA400D2E068 /* imgui_draw.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8440AE9F2F101AA400D2E068 /* imgui_draw.cpp */; };
+		8440AEA52F101AA400D2E068 /* imgui_widgets.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8440AEA12F101AA400D2E068 /* imgui_widgets.cpp */; };
+		8440AEA62F101AA400D2E068 /* imgui_demo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8440AE9E2F101AA400D2E068 /* imgui_demo.cpp */; };
+		8440AEA82F101AB800D2E068 /* imgui_freetype.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8440AEA72F101AB800D2E068 /* imgui_freetype.cpp */; };
+		8440AEAF2F10232900D2E068 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8440AEAE2F10232900D2E068 /* libfreetype.a */; };
+		8440AEBF2F1027ED00D2E068 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8440AEAE2F10232900D2E068 /* libfreetype.a */; };
+		8440AEC92F1028EA00D2E068 /* noto_sans_symbols2_ttf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8440AEC72F1028EA00D2E068 /* noto_sans_symbols2_ttf.cpp */; };
+		8440AECA2F1028EA00D2E068 /* noto_sans_ttf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8440AEC82F1028EA00D2E068 /* noto_sans_ttf.cpp */; };
+		8440AECB2F1028EA00D2E068 /* noto_sans_symbols_ttf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8440AEC62F1028EA00D2E068 /* noto_sans_symbols_ttf.cpp */; };
+		8440AECC2F1028EA00D2E068 /* noto_sans_cjk_jp_ttf.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8440AEC52F1028EA00D2E068 /* noto_sans_cjk_jp_ttf.cpp */; };
+		8440AECD2F10294C00D2E068 /* BRX-ImGui-Font-Asset.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8440AEC42F1027ED00D2E068 /* BRX-ImGui-Font-Asset.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8440AECF2F10294C00D2E068 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8440AE7A2F100ED100D2E068 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8440AEB42F1027ED00D2E068;
+			remoteInfo = "BRX-ImGui-Font-Asset";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		841B70CD2F11CB4000F6DB4C /* imgui_impl_osx.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; name = imgui_impl_osx.mm; path = ../backends/imgui_impl_osx.mm; sourceTree = SOURCE_ROOT; };
+		8440AE932F1010CD00D2E068 /* BRX-ImGui.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "BRX-ImGui.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8440AE9B2F101A8E00D2E068 /* imgui_impl_brx.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = imgui_impl_brx.cpp; path = ../backends/imgui_impl_brx.cpp; sourceTree = SOURCE_ROOT; };
+		8440AE9D2F101AA400D2E068 /* imgui.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = imgui.cpp; path = ../imgui.cpp; sourceTree = SOURCE_ROOT; };
+		8440AE9E2F101AA400D2E068 /* imgui_demo.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = imgui_demo.cpp; path = ../imgui_demo.cpp; sourceTree = SOURCE_ROOT; };
+		8440AE9F2F101AA400D2E068 /* imgui_draw.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = imgui_draw.cpp; path = ../imgui_draw.cpp; sourceTree = SOURCE_ROOT; };
+		8440AEA02F101AA400D2E068 /* imgui_tables.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = imgui_tables.cpp; path = ../imgui_tables.cpp; sourceTree = SOURCE_ROOT; };
+		8440AEA12F101AA400D2E068 /* imgui_widgets.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = imgui_widgets.cpp; path = ../imgui_widgets.cpp; sourceTree = SOURCE_ROOT; };
+		8440AEA72F101AB800D2E068 /* imgui_freetype.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = imgui_freetype.cpp; path = ../misc/freetype/imgui_freetype.cpp; sourceTree = SOURCE_ROOT; };
+		8440AEAE2F10232900D2E068 /* libfreetype.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libfreetype.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		8440AEC42F1027ED00D2E068 /* BRX-ImGui-Font-Asset.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = "BRX-ImGui-Font-Asset.framework"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8440AEC52F1028EA00D2E068 /* noto_sans_cjk_jp_ttf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = noto_sans_cjk_jp_ttf.cpp; path = ../misc/fonts/noto_sans_cjk_jp_ttf.cpp; sourceTree = SOURCE_ROOT; };
+		8440AEC62F1028EA00D2E068 /* noto_sans_symbols_ttf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = noto_sans_symbols_ttf.cpp; path = ../misc/fonts/noto_sans_symbols_ttf.cpp; sourceTree = SOURCE_ROOT; };
+		8440AEC72F1028EA00D2E068 /* noto_sans_symbols2_ttf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = noto_sans_symbols2_ttf.cpp; path = ../misc/fonts/noto_sans_symbols2_ttf.cpp; sourceTree = SOURCE_ROOT; };
+		8440AEC82F1028EA00D2E068 /* noto_sans_ttf.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = noto_sans_ttf.cpp; path = ../misc/fonts/noto_sans_ttf.cpp; sourceTree = SOURCE_ROOT; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		8440AE902F1010CD00D2E068 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8440AEAF2F10232900D2E068 /* libfreetype.a in Frameworks */,
+				8440AECD2F10294C00D2E068 /* BRX-ImGui-Font-Asset.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8440AEBE2F1027ED00D2E068 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8440AEBF2F1027ED00D2E068 /* libfreetype.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		8440AE792F100ED100D2E068 = {
+			isa = PBXGroup;
+			children = (
+				8440AE9B2F101A8E00D2E068 /* imgui_impl_brx.cpp */,
+				841B70CD2F11CB4000F6DB4C /* imgui_impl_osx.mm */,
+				8440AE9D2F101AA400D2E068 /* imgui.cpp */,
+				8440AE9E2F101AA400D2E068 /* imgui_demo.cpp */,
+				8440AE9F2F101AA400D2E068 /* imgui_draw.cpp */,
+				8440AEA02F101AA400D2E068 /* imgui_tables.cpp */,
+				8440AEA12F101AA400D2E068 /* imgui_widgets.cpp */,
+				8440AEA72F101AB800D2E068 /* imgui_freetype.cpp */,
+				8440AEC52F1028EA00D2E068 /* noto_sans_cjk_jp_ttf.cpp */,
+				8440AEC62F1028EA00D2E068 /* noto_sans_symbols_ttf.cpp */,
+				8440AEC72F1028EA00D2E068 /* noto_sans_symbols2_ttf.cpp */,
+				8440AEC82F1028EA00D2E068 /* noto_sans_ttf.cpp */,
+				8440AEAD2F10232900D2E068 /* Frameworks */,
+				8440AE842F100ED100D2E068 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		8440AE842F100ED100D2E068 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				8440AE932F1010CD00D2E068 /* BRX-ImGui.framework */,
+				8440AEC42F1027ED00D2E068 /* BRX-ImGui-Font-Asset.framework */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		8440AEAD2F10232900D2E068 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8440AEAE2F10232900D2E068 /* libfreetype.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		8440AE8E2F1010CD00D2E068 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8440AEB52F1027ED00D2E068 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXLegacyTarget section */
+		8440AEA92F101BBF00D2E068 /* BRX-ImGui-Build-GLSL */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "\"${PROJECT_DIR}/build-GLSL.sh\"";
+			buildConfigurationList = 8440AEAA2F101BBF00D2E068 /* Build configuration list for PBXLegacyTarget "BRX-ImGui-Build-GLSL" */;
+			buildPhases = (
+			);
+			buildToolPath = bash;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = "BRX-ImGui-Build-GLSL";
+			packageProductDependencies = (
+			);
+			passBuildSettingsInEnvironment = 1;
+			productName = "BRX-ImGui-Build-GLSL";
+		};
+		8440AEB02F1026E800D2E068 /* BRX-ImGui-Build-Fonts */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "\"${PROJECT_DIR}/build-fonts.sh\"";
+			buildConfigurationList = 8440AEB12F1026E800D2E068 /* Build configuration list for PBXLegacyTarget "BRX-ImGui-Build-Fonts" */;
+			buildPhases = (
+			);
+			buildToolPath = bash;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = "BRX-ImGui-Build-Fonts";
+			packageProductDependencies = (
+			);
+			passBuildSettingsInEnvironment = 1;
+			productName = "BRX-ImGui-Build-Fonts";
+		};
+/* End PBXLegacyTarget section */
+
+/* Begin PBXNativeTarget section */
+		8440AE922F1010CD00D2E068 /* BRX-ImGui */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8440AE9A2F1010CD00D2E068 /* Build configuration list for PBXNativeTarget "BRX-ImGui" */;
+			buildPhases = (
+				8440AE8E2F1010CD00D2E068 /* Headers */,
+				8440AE8F2F1010CD00D2E068 /* Sources */,
+				8440AE902F1010CD00D2E068 /* Frameworks */,
+				8440AE912F1010CD00D2E068 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8440AED02F10294C00D2E068 /* PBXTargetDependency */,
+			);
+			name = "BRX-ImGui";
+			packageProductDependencies = (
+			);
+			productName = "BRX-ImGui";
+			productReference = 8440AE932F1010CD00D2E068 /* BRX-ImGui.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		8440AEB42F1027ED00D2E068 /* BRX-ImGui-Font-Asset */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8440AEC12F1027ED00D2E068 /* Build configuration list for PBXNativeTarget "BRX-ImGui-Font-Asset" */;
+			buildPhases = (
+				8440AEB52F1027ED00D2E068 /* Headers */,
+				8440AEB62F1027ED00D2E068 /* Sources */,
+				8440AEBE2F1027ED00D2E068 /* Frameworks */,
+				8440AEC02F1027ED00D2E068 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "BRX-ImGui-Font-Asset";
+			packageProductDependencies = (
+			);
+			productName = "BRX-ImGui";
+			productReference = 8440AEC42F1027ED00D2E068 /* BRX-ImGui-Font-Asset.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		8440AE7A2F100ED100D2E068 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastUpgradeCheck = 2620;
+				TargetAttributes = {
+					8440AE922F1010CD00D2E068 = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					8440AEA92F101BBF00D2E068 = {
+						CreatedOnToolsVersion = 26.2;
+					};
+					8440AEB02F1026E800D2E068 = {
+						CreatedOnToolsVersion = 26.2;
+					};
+				};
+			};
+			buildConfigurationList = 8440AE7D2F100ED100D2E068 /* Build configuration list for PBXProject "BRX-ImGui" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 8440AE792F100ED100D2E068;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = 8440AE842F100ED100D2E068 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				8440AEB02F1026E800D2E068 /* BRX-ImGui-Build-Fonts */,
+				8440AEA92F101BBF00D2E068 /* BRX-ImGui-Build-GLSL */,
+				8440AE922F1010CD00D2E068 /* BRX-ImGui */,
+				8440AEB42F1027ED00D2E068 /* BRX-ImGui-Font-Asset */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		8440AE912F1010CD00D2E068 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8440AEC02F1027ED00D2E068 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		8440AE8F2F1010CD00D2E068 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8440AEA82F101AB800D2E068 /* imgui_freetype.cpp in Sources */,
+				8440AE9C2F101A8E00D2E068 /* imgui_impl_brx.cpp in Sources */,
+				8440AEA22F101AA400D2E068 /* imgui_tables.cpp in Sources */,
+				8440AEA32F101AA400D2E068 /* imgui.cpp in Sources */,
+				8440AEA42F101AA400D2E068 /* imgui_draw.cpp in Sources */,
+				8440AEA52F101AA400D2E068 /* imgui_widgets.cpp in Sources */,
+				841B70CE2F11CB4000F6DB4C /* imgui_impl_osx.mm in Sources */,
+				8440AEA62F101AA400D2E068 /* imgui_demo.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8440AEB62F1027ED00D2E068 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8440AEC92F1028EA00D2E068 /* noto_sans_symbols2_ttf.cpp in Sources */,
+				8440AECA2F1028EA00D2E068 /* noto_sans_ttf.cpp in Sources */,
+				8440AECB2F1028EA00D2E068 /* noto_sans_symbols_ttf.cpp in Sources */,
+				8440AECC2F1028EA00D2E068 /* noto_sans_cjk_jp_ttf.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		8440AED02F10294C00D2E068 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8440AEB42F1027ED00D2E068 /* BRX-ImGui-Font-Asset */;
+			targetProxy = 8440AECF2F10294C00D2E068 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		8440AE8C2F100ED200D2E068 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = x86_64;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = NO;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = c17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		8440AE8D2F100ED200D2E068 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = x86_64;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = NO;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = c17;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"NDEBUG=1",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				STRIP_INSTALLED_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8440AE972F1010CD00D2E068 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CLANG_X86_VECTOR_INSTRUCTIONS = avx2;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = NO;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = c17;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"PAL_STDCPP_COMPAT=1",
+					"\"IMGUI_API=__attribute__ ((visibility (\\\\\\\"default\\\\\\\")))\"",
+					"\"IMGUI_IMPL_API=__attribute__ ((visibility (\\\\\\\"default\\\\\\\")))\"",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../../CoreRT/src/Native/inc/unix",
+					"$(PROJECT_DIR)/../../DirectXMath/Inc",
+					"$(PROJECT_DIR)/../thirdparty/freetype/include",
+				);
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				"OTHER_CFLAGS[arch=i386]" = (
+					"$(inherited)",
+					"-mf16c",
+					"-mfma",
+				);
+				"OTHER_CFLAGS[arch=x86_64]" = (
+					"$(inherited)",
+					"-mf16c",
+					"-mfma",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "IO.GitHub.BriochePuppet.BRX-ImGui";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		8440AE982F1010CD00D2E068 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CLANG_X86_VECTOR_INSTRUCTIONS = avx2;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEFINES_MODULE = NO;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				GCC_C_LANGUAGE_STANDARD = c17;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"PAL_STDCPP_COMPAT=1",
+					"\"IMGUI_API=__attribute__ ((visibility (\\\\\\\"default\\\\\\\")))\"",
+					"\"IMGUI_IMPL_API=__attribute__ ((visibility (\\\\\\\"default\\\\\\\")))\"",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					"$(PROJECT_DIR)/../../CoreRT/src/Native/inc/unix",
+					"$(PROJECT_DIR)/../../DirectXMath/Inc",
+					"$(PROJECT_DIR)/../thirdparty/freetype/include",
+				);
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				"OTHER_CFLAGS[arch=i386]" = (
+					"$(inherited)",
+					"-mf16c",
+					"-mfma",
+				);
+				"OTHER_CFLAGS[arch=x86_64]" = (
+					"$(inherited)",
+					"-mf16c",
+					"-mfma",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "IO.GitHub.BriochePuppet.BRX-ImGui";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		8440AEAB2F101BBF00D2E068 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = c17;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8440AEAC2F101BBF00D2E068 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = c17;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		8440AEB22F1026E800D2E068 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				DEBUGGING_SYMBOLS = YES;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				GCC_C_LANGUAGE_STANDARD = c17;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		8440AEB32F1026E800D2E068 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				GCC_C_LANGUAGE_STANDARD = c17;
+				OTHER_CFLAGS = "";
+				OTHER_LDFLAGS = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		8440AEC22F1027ED00D2E068 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CLANG_X86_VECTOR_INSTRUCTIONS = avx2;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = NO;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EXPORTED_SYMBOLS_FILE = "$(PROJECT_DIR)/BRX-ImGui-Font-Asset.exp";
+				GCC_C_LANGUAGE_STANDARD = c17;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				"OTHER_CFLAGS[arch=i386]" = (
+					"$(inherited)",
+					"-mf16c",
+					"-mfma",
+				);
+				"OTHER_CFLAGS[arch=x86_64]" = (
+					"$(inherited)",
+					"-mf16c",
+					"-mfma",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "IO.GitHub.BriochePuppet.BRX-ImGui";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		8440AEC32F1027ED00D2E068 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = x86_64;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++20";
+				CLANG_ENABLE_MODULES = NO;
+				CLANG_ENABLE_OBJC_ARC = NO;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				CLANG_X86_VECTOR_INSTRUCTIONS = avx2;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				COPY_PHASE_STRIP = YES;
+				DEFINES_MODULE = NO;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				EXPORTED_SYMBOLS_FILE = "$(PROJECT_DIR)/BRX-ImGui-Font-Asset.exp";
+				GCC_C_LANGUAGE_STANDARD = c17;
+				GCC_ENABLE_CPP_EXCEPTIONS = NO;
+				GCC_ENABLE_CPP_RTTI = NO;
+				GCC_PREPROCESSOR_DEFINITIONS = "$(inherited)";
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GENERATE_INFOPLIST_FILE = YES;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MACOSX_DEPLOYMENT_TARGET = 10.15;
+				"OTHER_CFLAGS[arch=i386]" = (
+					"$(inherited)",
+					"-mf16c",
+					"-mfma",
+				);
+				"OTHER_CFLAGS[arch=x86_64]" = (
+					"$(inherited)",
+					"-mf16c",
+					"-mfma",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "IO.GitHub.BriochePuppet.BRX-ImGui";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		8440AE7D2F100ED100D2E068 /* Build configuration list for PBXProject "BRX-ImGui" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8440AE8C2F100ED200D2E068 /* Debug */,
+				8440AE8D2F100ED200D2E068 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8440AE9A2F1010CD00D2E068 /* Build configuration list for PBXNativeTarget "BRX-ImGui" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8440AE972F1010CD00D2E068 /* Debug */,
+				8440AE982F1010CD00D2E068 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8440AEAA2F101BBF00D2E068 /* Build configuration list for PBXLegacyTarget "BRX-ImGui-Build-GLSL" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8440AEAB2F101BBF00D2E068 /* Debug */,
+				8440AEAC2F101BBF00D2E068 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8440AEB12F1026E800D2E068 /* Build configuration list for PBXLegacyTarget "BRX-ImGui-Build-Fonts" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8440AEB22F1026E800D2E068 /* Debug */,
+				8440AEB32F1026E800D2E068 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		8440AEC12F1027ED00D2E068 /* Build configuration list for PBXNativeTarget "BRX-ImGui-Font-Asset" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8440AEC22F1027ED00D2E068 /* Debug */,
+				8440AEC32F1027ED00D2E068 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 8440AE7A2F100ED100D2E068 /* Project object */;
+}
